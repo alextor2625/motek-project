@@ -20,7 +20,7 @@ app.set('view engine', 'hbs');
 
 app.set('trust proxy', 1);
 app.enable('trust proxy');
- 
+
 // use session
 app.use(
   session({
@@ -34,7 +34,7 @@ app.use(
       maxAge: 600000 // 60 * 1000 ms === 1 min
     }, // ADDED code below !!!
     store: MongoStore.create({
-      mongoUrl: process.env.MONGODB_URI 
+      mongoUrl: process.env.MONGODB_URI
 
       // ttl => time to live
       // ttl: 60 * 60 * 24 // 60sec * 60min * 24h => 1 day
@@ -54,12 +54,12 @@ app.use('/users', usersRouter);
 app.use('/auth', authRouter)
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};

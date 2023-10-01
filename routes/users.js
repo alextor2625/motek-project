@@ -7,7 +7,7 @@ const User = require('../models/User')
 
 /* GET users listing. */
 router.get('/profile', isLoggedIn, (req, res, next) => {
-  res.render('users/user-profile', req.session.user);
+  res.render('users/user-profile');
 });
 
 router.get('/profile/edit', isLoggedIn, (req, res, next) => {
@@ -42,22 +42,24 @@ router.post('/profile/edit', isLoggedIn, (req, res, next) => {
           }
         } else {
           console.log("LINE 43 USERS.JS");
-          res.render('users/edit-user-profile', { firstname, 
-                                                  lastname, 
-                                                  email, 
-                                                  errorMessage: "Email already in use." })
+          res.render('users/edit-user-profile', {
+            firstname,
+            lastname,
+            email,
+            errorMessage: "Email already in use."
+          })
         }
       } else if (!((firstname + ' ' + lastname) == fullname) || !(email === req.session.user.email)) {
-          User.findOneAndUpdate({ username }, { fullname: firstname + ' ' + lastname, email }, { new: true })
-            .then(updatedUser => {
-              console.log('User Updated ===> ', updatedUser);
-              req.session.user = updatedUser
-              return res.render('users/user-profile', req.session.user)
-            })
-            .catch(err => {
-              console.log(err);
-              next(err);
-            })
+        User.findOneAndUpdate({ username }, { fullname: firstname + ' ' + lastname, email }, { new: true })
+          .then(updatedUser => {
+            console.log('User Updated ===> ', updatedUser);
+            req.session.user = updatedUser
+            return res.render('users/user-profile', req.session.user)
+          })
+          .catch(err => {
+            console.log(err);
+            next(err);
+          })
       }
     })
     .catch(err => {
