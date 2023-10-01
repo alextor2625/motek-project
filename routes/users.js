@@ -16,6 +16,7 @@ router.get('/profile/edit', isLoggedIn, (req, res, next) => {
   res.render('users/edit-user-profile', { firstname: name[0], lastname: name[1], email });
 })
 
+//Allows for user to edit profile
 router.post('/profile/edit', isLoggedIn, (req, res, next) => {
   const { fullname, username } = req.session.user;
   const { firstname, lastname, email } = req.body;
