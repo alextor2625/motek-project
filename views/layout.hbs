@@ -10,15 +10,17 @@
 
   <nav>
     <a href="/">Home</a>
-    <a href="/users/profile">Profile</a>
-    <a href="/auth/signup">Signup</a>
 
     {{#if isLoggedIn}}
-    <a href="/auth/logout">Logout</a>
+      <a href="/auth/logout">Logout</a>
+      <a href="/users/profile">Profile</a>
     {{else}}
-    <a href="/auth/login">Login</a>
+      <a href="/auth/login">Login</a>
+      <a href="/auth/signup">Sign Up</a>
     {{/if}}
   </nav>
+
+
 
   {{{body}}}
 </body>
