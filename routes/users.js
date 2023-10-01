@@ -14,7 +14,7 @@ router.get('/profile', isLoggedIn, (req, res, next) => {
 router.get('/profile/edit', isLoggedIn, (req, res, next) => {
   const { fullname, email } = req.session.user;
   let name = fullname.split(' ');
-  res.render('users/edit-user-profile', { firstname: name[0], lastname: name[1], email });
+  res.render('users/edit-user-profile', { firstname: name[0], lastname: name[1], email, isLoggedIn: true });
 })
 
 //Allows for user to edit profile
@@ -39,7 +39,7 @@ router.post('/profile/edit', isLoggedIn, (req, res, next) => {
               })
           } else {
             console.log("No Change on User.");
-            return res.render('users/user-profile', req.session.user)
+            return res.redirect('/users/profile');
           }
         } else {
           console.log("LINE 43 USERS.JS");

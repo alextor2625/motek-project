@@ -9,18 +9,22 @@
 <body>
 
   <nav>
-    <a href="/">Home</a>
+    <div class="to-left">
+      <a href="/" class="layout-links">Home</a>
+    </div>
 
-    {{#if isLoggedIn}}
-      <a href="/auth/logout">Logout</a>
-      <a href="/users/profile">Profile</a>
-    {{else}}
-      <a href="/auth/login">Login</a>
-      <a href="/auth/signup">Sign Up</a>
-    {{/if}}
+    <div class="to-right">
+      {{#if isLoggedIn}}
+      <a href="/users/profile" class="layout-links">Profile</a>
+      <a href="/auth/logout" class="layout-links">Logout</a>
+      {{else}}
+      <a href="/auth/login" class="layout-links">Login</a>
+      <a href="/auth/signup" class="layout-links">Sign Up</a>
+      {{/if}}
+    </div>
   </nav>
 
-
+  <hr class="border-nav">
 
   {{{body}}}
 </body>

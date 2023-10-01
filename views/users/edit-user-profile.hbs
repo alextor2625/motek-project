@@ -1,20 +1,20 @@
 <h2>Edit Profile</h2>
 
-<form action="/users/profile/edit" method="post">
+<form action="/users/profile/edit" method="post" class="form-orientation">
 
-<label for="firstname">First Name: </label>
-<input type="text" name="firstname" id="firstname" value="{{firstname}}">
+    <label for="firstname" class='centered-labels'>First Name: </label>
+    <input type="text" name="firstname" id="firstname" value="{{firstname}}" class="inputs-form">
 
-<label for="lastname">Last Name: </label>
-<input type="text" name="lastname" id="lastname" value="{{lastname}}">
+    <label for="lastname" class='centered-labels'>Last Name: </label>
+    <input type="text" name="lastname" id="lastname" value="{{lastname}}" class="inputs-form">
 
-<label for="email">Email: </label>
-<input type="text" name="email" id="email" value="{{email}}">
+    <label for="email" class='centered-labels'>Email: </label>
+    <input type="text" name="email" id="email" value="{{email}}" class="inputs-form">
 
-<button type="submit">Save Changes</button>
-<button type="submit" action="/users/profile">Cancel</button>
+    <button type="submit" class="save-changes btn-forms">Save Changes</button>
+    <a href=" /users/profile" class="btn-cancel btn-forms">Cancel</a>
 
-{{#if errorMessage}}
+    {{#if errorMessage}}
     <p>{{errorMessage}}</p>
-{{/if}}
+    {{/if}}
 </form>

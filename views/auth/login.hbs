@@ -1,21 +1,21 @@
-<h2>Login</h2>
+<h2 class="form-title">Login</h2>
 
 
-<form action="/auth/login" method="post">
+<form action="/auth/login" method="post" class="form-orientation">
 
-<label for="username">Username: </label>
-<input type="text" name="username" id="username">
+        <label for="username" class='centered-labels'>Username</label>
+        <input type="text" name="username" id="username" class="inputs-form">
 
-{{!-- <label for="email">Email: </label>
-<input type="text" name="email" id="email"> --}}
+        {{!-- <label for="email">Email: </label>
+        <input type="text" name="email" id="email"> --}}
 
-<label for="password">Password: </label>
-<input type="password" name="password" id="password">
+        <label for="password" class='centered-labels'>Password</label>
+        <input type="password" name="password" id="password" class="inputs-form">
 
-<button type="submit">Login</button>
+        <button type="submit" class="btn-forms">Login</button>
 
-{{#if errorMessage}}
+        {{#if errorMessage}}
         <p class="error">{{errorMessage}}</p>
-{{/if}}
+        {{/if}}
 
 </form>
