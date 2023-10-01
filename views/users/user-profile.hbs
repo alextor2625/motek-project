@@ -1,1 +1,16 @@
-<h2>Welcome {{username}}</h2>
+<h2>{{username}}'s Profile</h2>
+
+<div>
+    <p>
+        Name: {{fullname}}
+    </p>
+    <p>
+        Email: {{email}}
+    </p>
+    <form action="/users/profile/edit" method="get">
+    
+    <label for="edit-profile"></label>
+    <button name="edit-profile" id="edit-profile">Edit Profile</button>
+
+    </form>
+</div>
