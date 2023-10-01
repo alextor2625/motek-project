@@ -10,13 +10,13 @@ router.get('/profile', isLoggedIn, (req, res, next) => {
   res.render('users/user-profile', req.session.user);
 });
 
-router.get('/profile/edit', (req, res, next) => {
+router.get('/profile/edit', isLoggedIn, (req, res, next) => {
   const { fullname, email } = req.session.user;
   let name = fullname.split(' ');
   res.render('users/edit-user-profile', { firstname: name[0], lastname: name[1], email });
 })
 
-router.post('/profile/edit', (req, res, next) => {
+router.post('/profile/edit', isLoggedIn, (req, res, next) => {
   const { fullname, username } = req.session.user;
   const { firstname, lastname, email } = req.body;
 
