@@ -8,7 +8,9 @@ const Menu = require('../models/Menu')
 
 /* GET home page. */
 router.get('/user', isLoggedIn, function (req, res, next) {
+
     console.log("Admin User recognised");
+
     const isLoggedIn = req.session.user ? true : false;
     res.render('users/admin-profile', { isLoggedIn, admin: true });
 });
@@ -17,7 +19,7 @@ router.get('/user', isLoggedIn, function (req, res, next) {
 router.get('/user/lunchmenu/edit', isLoggedIn, (req, res, next) => {
     const isLoggedIn = req.session.user ? true : false;
 
-    Menu.find()
+    Menu.find({ menuType: 'Lunch' })
         .then(menuItems => {
             const itemCount = menuItems.length
             res.render('menus/edit-lunch-menu', { isLoggedIn, admin: true, menuItems, itemCount })
@@ -46,12 +48,17 @@ router.post('/user/lunchmenu/edit', isLoggedIn, (req, res, next) => {
     })
 
         .then(newItem => {
-            // Después de crear el nuevo elemento, busca todos los elementos de menú
-            return Menu.find();
+            return Menu.find({
+                menuType: lunch
+            });
         })
         .then(menuItems => {
-            // Renderiza la página 'edit-lunch-menu' con todos los elementos de menú
             res.render('menus/edit-lunch-menu', { menuItems, itemCount: menuItems.length });
+        })
+    Menu.findOneAndUpdate({ menuType, category, calories, itemName, description }, { new: true })
+        .then(updatedItem => {
+            console.log('Menu Item Updated: ', updatedItem);
+            return res.render('menus/edit-lunch-menu')
         })
         .catch(error => {
             console.error('Error creating menu item:', error);
@@ -62,7 +69,7 @@ router.post('/user/lunchmenu/edit', isLoggedIn, (req, res, next) => {
 
 router.get('/user/dinnermenu/edit', isLoggedIn, (req, res, next) => {
     const isLoggedIn = req.session.user ? true : false;
-    Menu.find()
+    Menu.find({ menuType: 'Dinner' })
         .then(menuItems => {
             const itemCount = menuItems.length
             res.render('menus/edit-dinner-menu', { isLoggedIn, admin: true, menuItems, itemCount })
@@ -91,11 +98,11 @@ router.post('/user/dinnermenu/edit', isLoggedIn, (req, res, next) => {
     })
 
         .then(newItem => {
-            // Después de crear el nuevo elemento, busca todos los elementos de menú
-            return Menu.find();
+            return Menu.find({
+                menuType: 'Dinner'
+            });
         })
         .then(menuItems => {
-            // Renderiza la página 'edit-dinner-menu' con todos los elementos de menú
             res.render('menus/edit-dinner-menu', { menuItems, itemCount: menuItems.length });
         })
         .catch(error => {
@@ -107,6 +114,5 @@ router.get('/user/rewards/edit', isLoggedIn, (req, res, next) => {
     const isLoggedIn = req.session.user ? true : false;
     res.render('rewards/edit-rewards', { isLoggedIn, admin: true })
 })
-
 
 module.exports = router;

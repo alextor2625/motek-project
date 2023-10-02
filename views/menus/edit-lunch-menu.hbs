@@ -49,7 +49,6 @@
             <label for="description" class="description-label">
                 <input type="text" name="description" id="description" placeholder="Add a description...">
             </label>
-
         </div>
     </div>
 
@@ -73,20 +72,20 @@
 
 <div class="items-container">
     {{#each menuItems}}
+    <div class="item">
+        <form action="/edit-menu-item/{{_id}}" method="post">
+            <div>
 
-    <div class="items">
-
-        <div>
-            <h4 class="item-name">{{itemName}}</h4>
-            <h4>Category: <span>{{category}}</span></h4>
-            <h4>Calories: <span>{{calories}}</span></h4>
-            <p>{{description}}</p>
-        </div>
-        <div class="item-btns">
-            <button>Edit</button>
-            <button>Delete</button>
-        </div>
+                <input type="text" name="itemName" value="{{itemName}}">
+                <input type="text" name="category" value="{{category}}">
+                <input type="text" name="calories" value="{{calories}}">
+                <textarea name="description">{{description}}</textarea>
+            </div>
+            <div>
+                <button type="submit">Edit</button>
+                <button type="submit">Delete</button>
+            </div>
+        </form>
     </div>
-
     {{/each}}
 </div>

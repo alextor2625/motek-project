@@ -1,6 +1,6 @@
 <h1 class="form-title">Dinner Menu Edit</h1>
 
-<form action="/admin/user/lunchmenu/edit" method="post" class="admin-form">
+<form action="/admin/user/dinnermenu/edit" method="post" class="admin-form">
         <div>
 
                 <label for="menuType">Menu Type</label>
@@ -76,10 +76,17 @@
         {{#each menuItems}}
 
         <div class="items">
-                <h4 class="item-name">{{itemName}}</h4>
-                <h4>Category: <span>{{category}}</span></h4>
-                <h4>Calories: <span>{{calories}}</span></h4>
-                <p>{{description}}</p>
+
+                <div>
+                        <h4 class="item-name">{{itemName}}</h4>
+                        <h4>Category: <span>{{category}}</span></h4>
+                        <h4>Calories: <span>{{calories}}</span></h4>
+                        <p>{{description}}</p>
+                </div>
+                <div class="item-btns">
+                        <button>Edit</button>
+                        <button>Delete</button>
+                </div>
         </div>
 
         {{/each}}
