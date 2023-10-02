@@ -7,13 +7,14 @@ const User = require('../models/User')
 
 /* GET users listing. */
 router.get('/profile', isLoggedIn, (req, res, next) => {
-  res.render('users/user-profile', req.session.user);
+  const { fullname, username, email } = req.session.user;
+  res.render('users/user-profile', { fullname, username, email, isLoggedIn: true })
 });
 
 router.get('/profile/edit', isLoggedIn, (req, res, next) => {
   const { fullname, email } = req.session.user;
   let name = fullname.split(' ');
-  res.render('users/edit-user-profile', { firstname: name[0], lastname: name[1], email });
+  res.render('users/edit-user-profile', { firstname: name[0], lastname: name[1], email, isLoggedIn: true });
 })
 
 //Allows for user to edit profile
@@ -38,26 +39,28 @@ router.post('/profile/edit', isLoggedIn, (req, res, next) => {
               })
           } else {
             console.log("No Change on User.");
-            return res.render('users/user-profile', req.session.user)
+            return res.redirect('/users/profile');
           }
         } else {
           console.log("LINE 43 USERS.JS");
-          res.render('users/edit-user-profile', { firstname, 
-                                                  lastname, 
-                                                  email, 
-                                                  errorMessage: "Email already in use." })
+          res.render('users/edit-user-profile', {
+            firstname,
+            lastname,
+            email,
+            errorMessage: "Email already in use."
+          })
         }
       } else if (!((firstname + ' ' + lastname) == fullname) || !(email === req.session.user.email)) {
-          User.findOneAndUpdate({ username }, { fullname: firstname + ' ' + lastname, email }, { new: true })
-            .then(updatedUser => {
-              console.log('User Updated ===> ', updatedUser);
-              req.session.user = updatedUser
-              return res.render('users/user-profile', req.session.user)
-            })
-            .catch(err => {
-              console.log(err);
-              next(err);
-            })
+        User.findOneAndUpdate({ username }, { fullname: firstname + ' ' + lastname, email }, { new: true })
+          .then(updatedUser => {
+            console.log('User Updated ===> ', updatedUser);
+            req.session.user = updatedUser
+            return res.render('users/user-profile', req.session.user)
+          })
+          .catch(err => {
+            console.log(err);
+            next(err);
+          })
       }
     })
     .catch(err => {

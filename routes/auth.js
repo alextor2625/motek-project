@@ -3,7 +3,7 @@ var router = express.Router();
 
 const bcryptjs = require('bcryptjs');
 const saltRounds = 10;
-const {isLoggedIn, isLoggedOut } = require('../middleware/route-guard');
+const { isLoggedIn, isLoggedOut } = require('../middleware/route-guard');
 
 const User = require('../models/User');
 
@@ -11,6 +11,8 @@ const User = require('../models/User');
 router.get('/signup', isLoggedOut, (req, res, next) => {
     res.render('auth/signup');
 });
+
+router.get('/')
 
 router.post('/signup', isLoggedOut, (req, res, next) => {
 
@@ -83,28 +85,28 @@ router.post('/login', isLoggedOut, (req, res, next) => {
         return;
     }
 
-    User.findOne({username})
-    .then(user => {
-        if(!user){
-            console.log("Username not registered.");
-            res.render('auth/login', { errorMessage: 'User not found and/or incorrect password.'})
-        } else if(bcryptjs.compareSync(password, user.password)) {
-            req.session.user = user;
-            console.log('SESSION ===> ', req.session);
-            res.redirect('/')
-        } else {
-            console.log("Incorrect password. ");
-            res.render('auth/login', { errorMessage: 'User not found and/or incorrect password.' });
-        }
-    })
-    .catch(error => {
-        console.log(error);
-        next(error)
-    });
+    User.findOne({ username })
+        .then(user => {
+            if (!user) {
+                console.log("Username not registered.");
+                res.render('auth/login', { errorMessage: 'User not found and/or incorrect password.' })
+            } else if (bcryptjs.compareSync(password, user.password)) {
+                req.session.user = user;
+                console.log('SESSION ===> ', req.session);
+                res.redirect('/')
+            } else {
+                console.log("Incorrect password. ");
+                res.render('auth/login', { errorMessage: 'User not found and/or incorrect password.' });
+            }
+        })
+        .catch(error => {
+            console.log(error);
+            next(error)
+        });
 
 })
 
-router.get('/logout', isLoggedIn, (req,res,next) =>{
+router.get('/logout', isLoggedIn, (req, res, next) => {
     req.session.destroy(err => {
         if (err) next(err)
         res.redirect('/')

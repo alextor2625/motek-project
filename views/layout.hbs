@@ -1,19 +1,33 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>{{title}}</title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
 
-    <nav>
-      <a href="/">Home</a>
-      <a href="/users/profile">Profile</a>
-      <a href="/auth/signup">Signup</a>
-      <a href="/auth/login">Login</a>
-      <a href="/auth/logout">Logout</a>
-    </nav>
+<head>
+  <title>{{title}}</title>
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
 
-    {{{body}}}
-  </body>
+<body>
+
+  <nav>
+    <div class="to-left">
+      <a href="/" class="layout-links">Home</a>
+    </div>
+
+    <div class="to-right">
+      {{#if isLoggedIn}}
+      <a href="/users/profile" class="layout-links">Profile</a>
+      <a href="/auth/logout" class="layout-links">Logout</a>
+      <a href="/" class="layout-links">My Rewards</a>
+      {{else}}
+      <a href="/auth/login" class="layout-links" id="btn-login">Login</a>
+      <a href="/auth/signup" class="layout-links">Sign Up</a>
+      {{/if}}
+    </div>
+  </nav>
+
+  <hr class="border-nav">
+
+  {{{body}}}
+</body>
+
 </html>
