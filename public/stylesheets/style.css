@@ -111,3 +111,57 @@ nav {
   display: flex;
   justify-content: space-around;
 }
+
+.admin-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.admin-text-inputs {
+  margin-top: 1rem;
+}
+
+#description {
+  margin-top: 1rem;
+  width: 30rem;
+  height: 10rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+#itemName {
+  width: 30rem;
+}
+
+.btn-admin {
+  width: 31rem;
+  margin-top: 1rem;
+  padding: 0.5rem 0rem;
+}
+
+.items-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+}
+
+.items {
+  text-align: center;
+  border: 2px solid black;
+}
+
+span {
+  font-weight: 100;
+}
+
+.item-name {
+  color: red;
+}
+
+.item-btns {
+  margin-bottom: 1rem;
+  cursor: pointer;
+}
