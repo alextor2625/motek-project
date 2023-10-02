@@ -1,0 +1,26 @@
+<h2 class="form-title">Lunch Menu Edit</h2>
+
+<form action="" method="post" class="form-orientation">
+
+        <label for="firstname" class='centered-labels'>First Name</label>
+        <input type="text" name="firstname" id="firstname" class="inputs-form">
+
+        <label for="lastname" class='centered-labels'>Last Name</label>
+        <input type="text" name="lastname" id="lastname" class="inputs-form">
+
+        <label for="username" class='centered-labels'>Username</label>
+        <input type="text" name="username" id="username" class="inputs-form">
+
+        <label for="email" class='centered-labels'>Email</label>
+        <input type="text" name="email" id="email" class="inputs-form">
+
+        <label for="password" class='centered-labels'>Password</label>
+        <input type="password" name="password" id="password" class="inputs-form">
+
+        <button type="submit" class="btn-forms">Signup</button>
+
+        {{#if errorMessage}}
+        <p class="error">{{errorMessage}}</p>
+        {{/if}}
+
+</form>

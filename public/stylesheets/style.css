@@ -106,3 +106,8 @@ nav {
   background-color: rgb(223, 127, 127);
   color: white;
 }
+
+.admin-container {
+  display: flex;
+  justify-content: space-around;
+}
