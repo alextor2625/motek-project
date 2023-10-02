@@ -153,14 +153,84 @@ nav {
   border: 2px solid black;
 }
 
+.items:hover {
+  background-color: rgb(232, 232, 232);
+}
+
 span {
   font-weight: 100;
 }
 
 .item-name {
   color: red;
+  background-color: rgb(205, 200, 200);
+  padding: 0.3rem 0rem;
+  width: 90%;
+  margin: 1rem auto;
+  border: 1px solid black;
+  border-radius: 0.5px;
 }
 
 .item-btns {
   margin-bottom: 1rem;
+}
+
+.item-btns>a {
+  text-decoration: none;
+  color: black;
+  background-color: rgb(241, 241, 117);
+  border: 1px solid black;
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+}
+
+.item-btns>a:hover {
+  background-color: rgb(241, 241, 197);
+}
+
+.items-edit {
+  text-align: center;
+  border: 2px solid black;
+  padding: 1rem;
+}
+
+.item-edit-name {
+  /* background-color: red; */
+  width: 11rem;
+  margin-bottom: 0.5rem;
+}
+
+.items-edit-dropdowns {
+  display: flex;
+  gap: 0.4rem;
+  margin-bottom: 0.5rem;
+  justify-content: space-between;
+}
+
+.items-edit-description {
+  width: 11rem;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+.items-edit-save {
+  width: 11.5rem;
+  padding: 0.6rem;
+  margin-top: 1rem;
+  border: 1px solid black;
+  background-color: rgb(214, 210, 210);
+}
+
+.items-edit-save:hover {
+  background-color: rgb(186, 220, 186);
+  cursor: pointer;
+}
+
+.items-flex {
+  display: flex;
+  flex-direction: column;
+}
+
+#calories2 {
+  position: fixed;
+  left: 13rem;
 }

@@ -26,6 +26,11 @@ const Menu = new Schema({
         type: Number,
         required: true,
         default: 0
+    },
+    edit: {
+        type: Boolean,
+        required: true,
+        default: false
     }
 },
     {

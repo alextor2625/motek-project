@@ -1,15 +1,87 @@
 <h1 class="form-title">Dinner Menu Edit</h1>
 
 <form action="/admin/user/dinnermenu/edit" method="post" class="admin-form">
+    <div>
+
+        <label for="menuType">Menu Type</label>
+        <select name="menuType" id="menuType">
+            <option value="Dinner">Dinner</option>
+        </select>
+
+        <label for="category">Category</label>
+        <select name="category" id="category">
+            <option value="All Day Brunch">All Day Brunch</option>
+            <option value="Cold Mezzes">Cold Mezzes</option>
+            <option value="Hot Mezzes">Hot Mezzes</option>
+            <option value="Sandwiches">Sandwiches</option>
+            <option value="Bowls">Bowls</option>
+            <option value="Plates">Plates</option>
+            <option value="Entrées">Entrées</option>
+            <option value="Burgers">Burgers</option>
+            <option value="Salads">Salads</option>
+            <option value="Hummus">Hummus</option>
+            <option value="Sides">Sides</option>
+            <option value="Sweets">Sweets</option>
+            <option value="Coffee">Coffee</option>
+            <option value="Specialty Lattes">Specialty Lattes</option>
+            <option value="Smoothies">Smoothies</option>
+            <option value="Tea">Tea</option>
+        </select>
+
+        <label for="calories">Calories</label>
+        <select name="calories" id="calories">
+            <option value="0">0</option>
+            <option value="100">100</option>
+            <option value="250">250</option>
+            <option value="500">500</option>
+            <option value="750">750</option>
+            <option value="1000">1000</option>
+        </select>
+    </div>
+
+    <div class="admin-text-inputs">
         <div>
+            <label for="itemName" class="description-label"></label>
+            <input type="text" name="itemName" id="itemName" placeholder="Input the name of the item...">
+        </div>
 
-                <label for="menuType">Menu Type</label>
-                <select name="menuType" id="menuType">
-                        <option value="Dinner">Dinner</option>
-                </select>
+        <div>
+            <label for="description" class="description-label">
+                <input type="text" name="description" id="description" placeholder="Add a description...">
+            </label>
+        </div>
+    </div>
 
-                <label for="category">Category</label>
-                <select name="category" id="category">
+    <button type="submit" class="btn-admin">Add Item</button>
+
+    {{#if errorMessage}}
+    <p class="error">{{errorMessage}}</p>
+    {{/if}}
+
+    {{#if addedMessage}}
+    <p class="error">{{addedMessage}}</p>
+    {{/if}}
+
+</form>
+
+
+<h1 class="form-title">All Items</h1>
+
+<h2 class="item-count">Items: <span>{{itemCount}}</span></h2>
+
+
+<div class="items-container">
+
+    {{#if edit}}
+
+    <div class="items-edit">
+        <form action="/admin/user/dinnermenu/edit/{{_id}}" method="post">
+            <div class="items-flex">
+                <input type="hidden" name="id" value="{{_id}}">
+                <input type="text" name="itemName" value="{{itemName}}" class="item-edit-name">
+                <div class="items-edit-dropdowns">
+                    <select name="category" id="category">
+                        <option value="{{category}}" disabled selected>{{category}}</option>
                         <option value="All Day Brunch">All Day Brunch</option>
                         <option value="Cold Mezzes">Cold Mezzes</option>
                         <option value="Hot Mezzes">Hot Mezzes</option>
@@ -26,68 +98,42 @@
                         <option value="Specialty Lattes">Specialty Lattes</option>
                         <option value="Smoothies">Smoothies</option>
                         <option value="Tea">Tea</option>
-                </select>
+                    </select>
 
-                <label for="calories">Calories</label>
-                <select name="calories" id="calories">
+                    <select name="calories" id="calories2">
+                        <option value="{{calories}}" disabled selected>{{calories}}</option>
                         <option value="0">0</option>
                         <option value="100">100</option>
                         <option value="250">250</option>
                         <option value="500">500</option>
                         <option value="750">750</option>
                         <option value="1000">1000</option>
-                </select>
+                    </select>
+                </div>
+                <textarea name="description" class="items-edit-description">{{description}}</textarea>
+
+                <button type="submit" class="items-edit-save">Save Changes</button>
+
+            </div>
+
+        </form>
+    </div>
+
+    {{else}}
+    {{#each menuItems}}
+    <div class="items">
+        <div>
+            <h4 class="item-name">{{itemName}}</h4>
+            <h4>Category: <span>{{category}}</span></h4>
+            <h4>Calories: <span>{{calories}}</span></h4>
+            <p>{{description}}</p>
         </div>
-
-        <div class="admin-text-inputs">
-                <div>
-                        <label for="itemName" class="description-label"></label>
-                        <input type="text" name="itemName" id="itemName" placeholder="Input the name of the item...">
-                </div>
-
-                <div>
-                        <label for="description" class="description-label">
-                                <input type="text" name="description" id="description"
-                                        placeholder="Add a description...">
-                        </label>
-
-                </div>
+        <div class="item-btns">
+            <a href="/admin/user/dinnermenu/edit/{{_id}}">Edit</a>
+            <a href="/admin/user/dinnermenu/delete/{{_id}}">Delete</a>
         </div>
+    </div>
+    {{/each}}
+    {{/if}}
 
-        <button type="submit" class="btn-admin">Add Item</button>
-
-        {{#if errorMessage}}
-        <p class="error">{{errorMessage}}</p>
-        {{/if}}
-
-        {{#if addedMessage}}
-        <p class="error">{{addedMessage}}</p>
-        {{/if}}
-
-</form>
-
-
-<h1 class="form-title">All Items</h1>
-
-<h2 class="item-count">Items: <span>{{itemCount}}</span></h2>
-
-
-<div class="items-container">
-        {{#each menuItems}}
-
-        <div class="items">
-
-                <div>
-                        <h4 class="item-name">{{itemName}}</h4>
-                        <h4>Category: <span>{{category}}</span></h4>
-                        <h4>Calories: <span>{{calories}}</span></h4>
-                        <p>{{description}}</p>
-                </div>
-                <div class="item-btns">
-                        <button>Edit</button>
-                        <button>Delete</button>
-                </div>
-        </div>
-
-        {{/each}}
 </div>
