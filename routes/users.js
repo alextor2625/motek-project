@@ -7,7 +7,10 @@ const User = require('../models/User')
 
 /* GET users listing. */
 router.get('/profile', isLoggedIn, (req, res, next) => {
-  const { fullname, username, email } = req.session.user;
+  const { fullname, username, email, admin } = req.session.user;
+  if(admin){
+    res.redirect('/admin/user')
+  }
   res.render('users/user-profile', { fullname, username, email, isLoggedIn: true })
 });
 
