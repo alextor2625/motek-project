@@ -93,10 +93,13 @@ router.post('/login', isLoggedOut, (req, res, next) => {
             } else if (bcryptjs.compareSync(password, user.password)) {
                 req.session.user = user;
                 console.log('SESSION ===> ', req.session);
-                res.redirect('/')
+                if(user.admin){
+                    return res.redirect('/admin/user');
+                }
+                return res.redirect('/')
             } else {
                 console.log("Incorrect password. ");
-                res.render('auth/login', { errorMessage: 'User not found and/or incorrect password.' });
+                return res.render('auth/login', { errorMessage: 'User not found and/or incorrect password.' });
             }
         })
         .catch(error => {

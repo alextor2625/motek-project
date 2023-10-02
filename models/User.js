@@ -23,6 +23,12 @@ const userSchema = new Schema(
       type: String,
       required: true
     },
+    admin: {
+      type: Boolean,
+      enum: [true, false],
+      required: true,
+      default: false
+    }
   },
   {
     timestamps: true
