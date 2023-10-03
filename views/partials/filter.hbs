@@ -1,4 +1,4 @@
-<form action="/rewards/addyourpoints/filter" method="get">
+<form action="{{route}}" method="get">
 
     <label for="itemNameFilter" >Item Name: </label>
     <input type="text" name="itemNameFilter" id="itemNameFilter" value="{{itemNameFilter}}">
@@ -7,7 +7,7 @@
     <label for="categoryFilter">Catergory </label>
     <select name="categoryFilter" id="categoryFilter">
         {{#if selected}}
-        <option value="{{selected}}" disabled selected id="selected">{{selected}}</option>
+        <option value="{{selected}}" selected id="selected">{{selected}}</option>
         {{/if}}
         <option value="All Categories">All Categories</option>
         <option value="All Day Brunch">All Day Brunch</option>
@@ -29,5 +29,7 @@
     </select>
 
     <button type="submit">Search</button>
-    {{!-- <a href="{{resetRoute}}">Reset</a> --}}
+    {{#if resetRoute}}
+    <a href="{{resetRoute}}">Reset</a>
+    {{/if}}
 </form>

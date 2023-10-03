@@ -50,43 +50,42 @@ router.post('/addyourpoints', (req, res, next) => {
 router.get('/addyourpoints/filter', (req, res, next) => {
     const { itemNameFilter, categoryFilter } = req.query
     let { selected } = req.query
-    // console.log("FILTER", categoryFilter, itemNameFilter.length < 1 && categoryFilter === "All Categories");
     if (itemNameFilter.length < 1 && categoryFilter === "All Categories") {
         Menu.find({ menuType: "Lunch" })
-            .then(picked => {
-                console.log("FILTER =====>", { menuItems });
-                selected = "All Categories"
-                res.render('rewards/add-points', { picked, selected,isLoggedIn: true })
-            })
-            .catch(err => console.log(err))
+        .then(picked => {
+            console.log("FILTER =====>", { picked });
+            selected = "All Categories"
+            res.render('rewards/add-points', { picked, itemNameFilter, selected, chosenMeal: "Lunch", isLoggedIn: true })
+        })
+        .catch(err => console.log(err))
         return
     }
     if (itemNameFilter.length < 1 && categoryFilter !== "All Categories") {
         Menu.find({ category: categoryFilter, menuType: "Lunch" })
-            .then(menuItems => {
+            .then(picked => {
                 selected = categoryFilter
-                console.log("LINE 267 FILTER =====>", { menuItems });
-                res.render('rewards/add-points', { menuItems, selected, isLoggedIn: true })
+                console.log("LINE 267 FILTER =====>", { picked });
+                res.render('rewards/add-points', { picked, itemNameFilter, selected, chosenMeal: "Lunch", isLoggedIn: true })
             })
             .catch(err => console.log(err))
         return
     }
     if (itemNameFilter.length && categoryFilter === "All Categories") {
         Menu.find({ itemName: itemNameFilter, menuType: "Lunch" })
-            .then(menuItems => {
+            .then(picked => {
                 selected = categoryFilter
-                console.log("LINE 267 FILTER =====>", { menuItems });
-                res.render('rewards/add-points', { menuItems, itemNameFilter: itemNameFilter.replace(/^\s+|\s+$/g, '').split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()).join(' '), selected, isLoggedIn: true })
+                console.log("LINE 267 FILTER =====>", { picked });
+                res.render('rewards/add-points', { picked, itemNameFilter,selected, chosenMeal: "Lunch", isLoggedIn: true })
             })
             .catch(err => console.log(err))
         return
     }
     if (itemNameFilter.length && categoryFilter !== "All Categories") {
         Menu.find({ itemName: itemNameFilter, category: categoryFilter, menuType: "Lunch" })
-            .then(menuItems => {
+            .then(picked => {
                 selected = categoryFilter
-                console.log("LINE 267 FILTER =====>", { menuItems });
-                res.render('rewards/add-points', { menuItems, itemNameFilter: itemNameFilter.replace(/^\s+|\s+$/g, '').split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()).join(' '), selected, isLoggedIn: true })
+                console.log("LINE 267 FILTER =====>", { picked });
+                res.render('rewards/add-points', { picked, itemNameFilter,selected, chosenMeal: "Lunch", isLoggedIn: true })
             })
             .catch(err => console.log(err))
         return
