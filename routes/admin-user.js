@@ -45,31 +45,22 @@ router.post('/user/lunchmenu/edit', isLoggedIn, (req, res, next) => {
         res.redirect('/admin/user/lunchmenu/edit')
         return;
     }
-
     Menu.create({
         menuType: menuType,
         category: category,
         calories: calories,
-        itemName: itemName,
-        description: description
+        itemName: itemName.replace(/^\s+|\s+$/g,'').split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()).join(' '),
+        description: description.replace(/^\s+|\s+$/g,'').charAt(0).toUpperCase()+description.replace(/^\s+|\s+$/g,'').slice(1).toLowerCase()
     })
 
         .then(newItem => {
+            console.log("Created New Menu Item =====> ", newItem);
             return Menu.find({ menuType: 'Lunch' });
         })
         .then(menuItems => {
+            console.log("All Menu Items =====> ", menuItems);
             // res.render('menus/edit-lunch-menu', { menuItems, itemCount: menuItems.length, isLoggedIn: true });
             res.redirect('/admin/user/lunchmenu/edit')
-        })
-        .catch(error => {
-            console.error('Error creating menu item:', error);
-            res.render('menus/edit-lunch-menu', { errorMessage: 'Failed to create menu item' });
-        });
-
-    Menu.findOneAndUpdate({ menuType, category, calories, itemName, description }, { new: true })
-        .then(updatedItem => {
-            console.log('Menu Item Updated: ', updatedItem);
-            return res.render('menus/edit-lunch-menu', { menuType, category, calories, itemName, description, isLoggedIn: true })
         })
         .catch(error => {
             console.error('Error creating menu item:', error);
@@ -94,9 +85,29 @@ router.get('/user/lunchmenu/edit/:itemId', isLoggedIn, (req, res, next) => {
         });
 })
 router.post('/user/lunchmenu/edit/:itemId', isLoggedIn, (req, res, next) => {
-    const itemId = req.params.itemId
+    const { itemId } = req.params
     const { menuType, category, calories, itemName, description } = req.body;
-    Menu.findByIdAndUpdate(itemId, { menuType, category, calories, itemName, description }, { new: true })
+    if (!itemName || !description) {
+        
+        Menu.findById(itemId)
+        .then(menuItem => {
+                menuItem.edit = true
+                return res.render('menus/edit-lunch-menu', { ...menuItem._doc, isLoggedIn: true, errorMessage: "All fields must contain a value" })
+
+            })
+            .catch(error => {
+                console.error('Error editing menu item:', error);
+                // res.render('menus/edit-lunch-menu', { errorMessage: 'Failed to create menu item' });
+            });
+            return
+    }
+    Menu.findByIdAndUpdate(itemId, {
+        menuType,
+        category,
+        calories,
+        itemName: itemName.replace(/^\s+|\s+$/g,'').split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()).join(' '),
+        description: description.replace(/^\s+|\s+$/g,'').charAt(0).toUpperCase()+description.replace(/^\s+|\s+$/g,'').slice(1).toLowerCase()
+    }, { new: true })
         .then(udpated => {
             udpated.edit = false
             console.log('Edited Menu Item =====>', udpated)
@@ -122,37 +133,6 @@ router.get('/user/lunchmenu/delete/:itemId', (req, res, next) => {
 })
 
 // Post #2
-
-// router.post('/user/dinnermenu/edit', isLoggedIn, (req, res, next) => {
-//     const { menuType, category, calories, itemName, description } = req.body
-//     console.log('Received Post Data:', req.body)
-
-//     if (!menuType || !category || !calories || !itemName || !description) {
-//         res.render('menus/edit-dinner-menu', { errorMessage: 'Missing categories' });
-//         return;
-//     }
-
-//     Menu.create({
-//         menuType: menuType,
-//         category: category,
-//         calories: calories,
-//         itemName: itemName,
-//         description: description
-//     })
-
-//         .then(newItem => {
-//             return Menu.find({
-//                 menuType: 'Dinner'
-//             });
-//         })
-//         .then(menuItems => {
-//             res.render('menus/edit-dinner-menu', { menuItems, itemCount: menuItems.length });
-//         })
-//         .catch(error => {
-//             console.error('Error creating menu item:', error);
-//             res.render('menus/edit-dinner-menu', { errorMessage: 'Failed to create menu item' });
-//         });
-// })
 
 //done
 router.get('/user/dinnermenu/edit', isLoggedIn, (req, res, next) => {
@@ -183,8 +163,8 @@ router.post('/user/dinnermenu/edit', isLoggedIn, (req, res, next) => {
         menuType: menuType,
         category: category,
         calories: calories,
-        itemName: itemName,
-        description: description
+        itemName: itemName.replace(/^\s+|\s+$/g,'').split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()).join(' '),
+        description: description.replace(/^\s+|\s+$/g,'').charAt(0).toUpperCase()+description.replace(/^\s+|\s+$/g,'').slice(1).toLowerCase()
     })
 
         .then(newItem => {
@@ -193,16 +173,6 @@ router.post('/user/dinnermenu/edit', isLoggedIn, (req, res, next) => {
         .then(menuItems => {
             // res.render('menus/edit-lunch-menu', { menuItems, itemCount: menuItems.length, isLoggedIn: true });
             res.redirect('/admin/user/dinnermenu/edit')
-        })
-        .catch(error => {
-            console.error('Error creating menu item:', error);
-            res.render('menus/edit-dinner-menu', { errorMessage: 'Failed to create menu item' });
-        });
-
-    Menu.findOneAndUpdate({ menuType, category, calories, itemName, description }, { new: true })
-        .then(updatedItem => {
-            console.log('Menu Item Updated: ', updatedItem);
-            return res.render('menus/edit-dinner-menu', { menuType, category, calories, itemName, description, isLoggedIn: true })
         })
         .catch(error => {
             console.error('Error creating menu item:', error);
@@ -231,7 +201,14 @@ router.get('/user/dinnermenu/edit/:itemId', isLoggedIn, (req, res, next) => {
 router.post('/user/dinnermenu/edit/:itemId', isLoggedIn, (req, res, next) => {
     const itemId = req.params.itemId
     const { menuType, category, calories, itemName, description } = req.body;
-    Menu.findByIdAndUpdate(itemId, { menuType, category, calories, itemName, description }, { new: true })
+    Menu.findByIdAndUpdate(itemId, {
+        menuType,
+        category,
+        calories,
+        itemName: itemName.replace(/^\s+|\s+$/g,'').split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()).join(' '),
+        description: description.replace(/^\s+|\s+$/g,'').charAt(0).toUpperCase()+description.replace(/^\s+|\s+$/g,'').slice(1).toLowerCase()
+
+    }, { new: true })
         .then(udpated => {
             udpated.edit = false
             console.log('Edited Menu Item =====>', udpated)
