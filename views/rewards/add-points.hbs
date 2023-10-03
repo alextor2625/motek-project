@@ -1,0 +1,51 @@
+<h1>Add your points</h1>
+
+<nav>
+    <div class="to-left">
+       
+    </div>
+
+    <div class="to-right goback-link">
+        <a href="javascript:history.back()" id="goback-link">Go Back</a>
+    </div>
+</nav>
+
+
+{{#if showForm}}
+<h2>What did you eat?</h2>
+<form action="/rewards/addyourpoints" method="post">
+    <label>
+        <input type="radio" name="meal" value="Lunch"> Lunch
+    </label>
+    <label>
+        <input type="radio" name="meal" value="Dinner"> Dinner
+    </label>
+    <input type="submit" value="Choose">
+</form>
+
+
+{{else}}
+<h1>{{chosenMeal}} Page</h1>
+<h2>Select what you eat below:</h2>
+{{>filter this}}
+
+<div class="items-container">
+ {{#each picked}}
+        <div class="items">
+            <div>
+                <h4 class="item-name">{{itemName}}</h4>
+                <h4>Category: <span>{{category}}</span></h4>
+                <h4>Calories: <span>{{calories}}</span></h4>
+                <p>{{description}}</p>
+            </div>
+            <div class="item-btns">
+                <a href="/">Add</a>
+            </div>
+        </div>
+    {{/each}}
+</div>
+
+{{/if}}
+
+
+{{!-- Find by ID, form with post request     /addyourpoints/:_id --}}
