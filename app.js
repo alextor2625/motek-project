@@ -7,12 +7,14 @@ var logger = require('morgan');
 var mongoose = require('mongoose');
 var session = require('express-session');
 var MongoStore = require('connect-mongo');
+var hbs = require('hbs')
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var authRouter = require('./routes/auth');
-
 var adminRouter = require('./routes/admin-user')
+var rewardRouter = require('./routes/rewards');
+hbs.registerPartials(__dirname + "/views/partials");
 
 var app = express();
 
@@ -55,6 +57,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/auth', authRouter)
 app.use('/admin', adminRouter)
+app.use('/rewards', rewardRouter)
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
