@@ -195,7 +195,6 @@ span {
 }
 
 .item-edit-name {
-  /* background-color: red; */
   width: 11rem;
   margin-bottom: 0.5rem;
 }
@@ -284,14 +283,8 @@ span {
   margin-left: 2rem;
 }
 
-/* .rewards-options > ul {
-  list-style-type: none;
-  padding: 0;
-} */
-
 .rewards-layout {
   display: flex;
-  /* flex-direction: column; */
 }
 
 .rewards-layout>button {
@@ -321,4 +314,26 @@ span {
 .rewards-nav {
   margin-top: 2rem;
   align-items: center;
+}
+
+.reward-layout-btns>a {
+  text-decoration: none;
+  color: black;
+  background-color: rgb(132, 189, 236);
+  padding: 0.5rem;
+  border: 1px solid black;
+  border-radius: 4px;
+}
+
+.goback-link {
+  margin-top: 0.8rem;
+}
+
+#goback-link {
+  text-decoration: none;
+  color: black;
+  background-color: rgb(132, 189, 236);
+  padding: 0.5rem;
+  border: 1px solid black;
+  border-radius: 4px;
 }
