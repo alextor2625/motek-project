@@ -234,9 +234,6 @@ router.get('/user/dinnermenu/delete/:itemId', (req, res, next) => {
         });
 })
 
-
-
-
 // ----------------------------------------------------------------------------
 router.get('/user/rewards/edit', isLoggedIn, (req, res, next) => {
     const isLoggedIn = req.session.user ? true : false;

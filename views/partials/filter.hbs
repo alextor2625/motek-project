@@ -7,7 +7,7 @@
     <label for="categoryFilter">Catergory </label>
     <select name="categoryFilter" id="categoryFilter">
         {{#if selected}}
-        <option value="{{selected}}" disabled selected id="selected">{{selected}}</option>
+        <option value="{{selected}}" selected id="selected">{{selected}}</option>
         {{/if}}
         <option value="All Categories">All Categories</option>
         <option value="All Day Brunch">All Day Brunch</option>
@@ -29,6 +29,7 @@
     </select>
 
     <button type="submit">Search</button>
+    {{#if resetRoute}}
     <a href="{{resetRoute}}">Reset</a>
-
+    {{/if}}
 </form>

@@ -15,6 +15,9 @@ var authRouter = require('./routes/auth');
 var adminRouter = require('./routes/admin-user')
 var rewardRouter = require('./routes/rewards');
 hbs.registerPartials(__dirname + "/views/partials");
+hbs.registerHelper('eq', function (a, b) {
+  return a === b;
+});
 
 var app = express();
 
