@@ -20,7 +20,8 @@ const Menu = new Schema({
     },
     description: {
         type: String,
-        required: true
+        required: true,
+        trim: true
     },
     calories: {
         type: Number,
