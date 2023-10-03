@@ -7,7 +7,10 @@ const User = require('../models/User')
 
 /* GET users listing. */
 router.get('/profile', isLoggedIn, (req, res, next) => {
-  const { fullname, username, email } = req.session.user;
+  const { fullname, username, email, admin } = req.session.user;
+  if(admin){
+    res.redirect('/admin/user')
+  }
   res.render('users/user-profile', { fullname, username, email, isLoggedIn: true })
 });
 
@@ -31,7 +34,8 @@ router.post('/profile/edit', isLoggedIn, (req, res, next) => {
               .then(updatedUser => {
                 console.log('User Updated ===> ', updatedUser);
                 req.session.user = updatedUser
-                return res.render('users/user-profile', req.session.user)
+                const { fullname, username, email, admin } = updatedUser
+                return res.render('users/user-profile', {fullname, username, email, admin, isLoggedIn: true})
               })
               .catch(err => {
                 console.log(err);
@@ -47,6 +51,7 @@ router.post('/profile/edit', isLoggedIn, (req, res, next) => {
             firstname,
             lastname,
             email,
+            isLoggedIn: true,
             errorMessage: "Email already in use."
           })
         }
@@ -55,7 +60,8 @@ router.post('/profile/edit', isLoggedIn, (req, res, next) => {
           .then(updatedUser => {
             console.log('User Updated ===> ', updatedUser);
             req.session.user = updatedUser
-            return res.render('users/user-profile', req.session.user)
+            const { fullname, username, email, admin } = updatedUser
+            return res.render('users/user-profile', {fullname, username, email, admin, isLoggedIn: true})
           })
           .catch(err => {
             console.log(err);

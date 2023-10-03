@@ -3,27 +3,39 @@ const { Schema, model } = require('mongoose');
 const Menu = new Schema({
     menuType: {
         type: String,
-        enum:['Lunch','Dinner'],
+        enum: ["Lunch", "Dinner"],
         required: true,
         trim: true
     },
-    itemName:{
+    itemName: {
         type: String,
         required: true,
         trim: true,
         unique: true
     },
-    category:{
+    category: {
         type: String,
         required: true,
         trim: true,
     },
-    calories:{
+    description: {
+        type: String,
+        required: true,
+        trim: true
+    },
+    calories: {
         type: Number,
+        required: true,
+        default: 0
+    },
+    edit: {
+        type: Boolean,
+        required: true,
+        default: false
     }
 },
-{
-  timestamps: true
-});
+    {
+        timestamps: true
+    });
 
 module.exports = model('Menu', Menu);
