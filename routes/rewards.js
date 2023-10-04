@@ -103,13 +103,78 @@ router.get('/myCart', (req, res, next) => {
     const itemId = req.session.meal._id
     console.log('ItemId', itemId)
 
+
     Meal.findById(itemId)
         .populate('menuItems')
         .then(addedItems => {
-            console.log('added items:', addedItems)
-            res.render('rewards/submit-rewards.hbs', { isLoggedIn: true, showForm: false, addedItems: addedItems.menuItems });
+
+            if (!addedItems) {
+                res.redirect('/rewards/addyourpoints')
+            } else {
+                console.log('added items:', addedItems)
+                res.render('rewards/submit-rewards.hbs', { isLoggedIn: true, showForm: false, addedItems: addedItems.menuItems });
+            }
         })
+
 })
+
+// router.post('/myCart/delete/:item', (req, res, next) => {
+//     const itemId = req.session.meal._id
+//     console.log('Deleted Item:', itemId);
+
+//     Meal.findById(itemId)
+//         .populate('menuItems')
+//         .then(addedItems => {
+//             if (addedItems && addedItems.menuItems.length > 0) {
+//                 console.log('Deleted Item - Line 129:', itemId)
+//                 return Meal.findByIdAndDelete(itemId)
+//                     .then((deletedItem) => {
+//                         console.log('deleted item line 132:', deletedItem)
+//                         res.redirect('/rewards/myCart')
+//                     })
+//                     .catch((err) => {
+//                         console.log('Not Found:', err)
+//                     })
+//             } else {
+
+//                 Meal.find()
+//                     .then(mealCart => {
+//                         console.log('Deleted Item:', mealCart)
+//                         res.redirect('/rewards/addyourpoints');
+//                     })
+//             }
+//         })
+//         .catch((err) => {
+//             console.log('Error:', err);
+//             // next(err);
+//         });
+// })
+router.post('/myCart/delete/:item', async (req, res, next) => {
+
+    const mealId = req.session.meal._id
+    console.log('Line 155 - Deleted Item:', req.params.item);
+
+    try {
+
+        let foundMeal = await Meal.findById(mealId)
+
+        let populatedMeal = await foundMeal.populate('menuItems')
+        console.log('Line 162 - Populated Meal:', populatedMeal)
+        if (populatedMeal.menuItems.length) {
+            populatedMeal.menuItems = populatedMeal.menuItems.filter((el) => el._id.toString() !== req.params.item)
+            let updated = populatedMeal.save()
+            console.log("Updated", updated)
+            res.redirect('/rewards/myCart')
+        } else {
+            res.redirect('/rewards/addyourpoints');
+        }
+
+    } catch (err) {
+        console.log(err)
+    }
+
+})
+
 
 // Filter -------------------------------------------------
 

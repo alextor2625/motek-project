@@ -1,39 +1,43 @@
 <div class="index-body">
-<nav class="add-points-nav">
-    <div class="to-left">
-     <h1 class="add-points-title">Submit & Change</h1>
-       
+    <nav class="add-points-nav">
+        <div class="to-left">
+            <h1 class="add-points-title">Submit & Change</h1>
+
+        </div>
+
+        <div class="to-right goback-link">
+            <a href=".." id="goback-link">Go Back</a>
+        </div>
+    </nav>
+
+
+    <h1 class="chosen-meal">{{chosenMeal}} Page</h1>
+
+    <div class="add-more-container">
+        <div>
+            {{>menuFilter this route="/rewards/addyourpoints/filter"}}
+        </div>
+
+        <div>
+            <a href="javascript:history.back()" class="layout-links">Add More</a>
+        </div>
     </div>
 
-    <div class="to-right goback-link">
-        <a href=".." id="goback-link">Go Back</a>
-    </div>
-</nav>
-
-
-<h1 class="chosen-meal">{{chosenMeal}} Page</h1>
-
-<div class="add-more-container">
-    <div>
-        {{>menuFilter this route="/rewards/addyourpoints/filter"}}
-    </div>
-
-    <div>
-        <a href="javascript:history.back()" class="layout-links">Add More</a>
-    </div>
-</div>
-
-<div class="selected-items">
-    {{#each addedItems}}
+    <div class="selected-items">
+        {{#each addedItems}}
         <div class="items">
             <div>
                 <h4 class="item-name">{{itemName}}</h4>
                 <h4>Category: <span>{{category}}</span></h4>
                 <h4>Calories: <span>{{calories}}</span></h4>
                 <p>{{description}}</p>
+
+                <form action="/rewards/myCart/delete/{{_id}}" method="post">
+                    <button>Delete</button>
+                </form>
             </div>
         </div>
-    {{/each}}
+        {{/each}}
     </div>
 
 
