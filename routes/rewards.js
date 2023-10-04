@@ -48,8 +48,10 @@ router.post('/addyourpoints', (req, res, next) => {
 // Filter -------------------------------------------------
 
 router.get('/addyourpoints/filter', (req, res, next) => {
-    const { itemNameFilter, categoryFilter } = req.query
-    let { selected } = req.query
+    const {categoryFilter } = req.query
+    let { itemNameFilter, selected } = req.query
+    itemNameFilter = itemNameFilter.replace(/^\s+|\s+$/g,'').split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()).join(' ')
+
     if (itemNameFilter.length < 1 && categoryFilter === "All Categories") {
         Menu.find({ menuType: "Lunch" })
         .then(picked => {
