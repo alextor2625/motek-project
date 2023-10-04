@@ -1,16 +1,18 @@
+
+<div class="index-body">
 <h2 class="form-title">Login</h2>
 
 
 <form action="/auth/login" method="post" class="form-orientation">
 
-        <label for="username" class='centered-labels'>Username</label>
-        <input type="text" name="username" id="username" class="inputs-form">
+        
+        <input type="text" name="username" id="username" class="user-inputs" placeholder="  Username">
 
         {{!-- <label for="email">Email: </label>
         <input type="text" name="email" id="email"> --}}
 
-        <label for="password" class='centered-labels'>Password</label>
-        <input type="password" name="password" id="password" class="inputs-form">
+        
+        <input type="password" name="password" id="password" class="user-inputs" placeholder="  Password">
 
         <button type="submit" class="btn-forms">Login</button>
 
@@ -19,3 +21,4 @@
         {{/if}}
 
 </form>
+</div>

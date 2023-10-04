@@ -87,5 +87,8 @@ mongoose
     console.error("Error connecting to mongo: ", err);
   });
 
+// app.get('/favicon.ico', (req, res) => res.sendStatus(204));
+
+
 
 module.exports = app;
