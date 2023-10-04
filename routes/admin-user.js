@@ -256,16 +256,16 @@ router.get('/user/dinnermenu/edit', isLoggedIn, (req, res, next) => {
 })
 
 router.get('/user/lunchmenu/filter', (req, res, next) => {
-    const { itemNameFilter, categoryFilter} = req.query
-    let {selected} = req.query
-    // console.log("FILTER", categoryFilter, itemNameFilter.length < 1 && categoryFilter === "All Categories");
-
+    const {categoryFilter} = req.query
+    let {itemNameFilter, selected} = req.query
+    itemNameFilter = itemNameFilter.replace(/^\s+|\s+$/g,'').split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()).join(' ')
     if(itemNameFilter.length < 1 && categoryFilter === "All Categories"){
         Menu.find({ menuType: "Lunch" })
         .then(menuItems =>{
+            const itemCount = menuItems.length
             console.log("FILTER =====>", {menuItems});
             selected = "All Categories"
-            res.render('menus/edit-lunch-menu', {menuItems, selected , route: "/admin/user/lunchmenu/filter", resetRoute: "/user/lunchmenu/edit/", isLoggedIn: true})
+            res.render('menus/edit-lunch-menu', {menuItems, itemNameFilter,selected,itemCount, isLoggedIn: true})
         })
         .catch(err => console.log(err))
         return
@@ -274,9 +274,10 @@ router.get('/user/lunchmenu/filter', (req, res, next) => {
     if(itemNameFilter.length < 1 && categoryFilter !== "All Categories"){   
         Menu.find({category: categoryFilter, menuType: "Lunch"})
         .then(menuItems =>{
+            const itemCount = menuItems.length
             selected = categoryFilter
-            console.log("LINE 267 FILTER =====>", {menuItems});
-            res.render('menus/edit-lunch-menu', {menuItems, selected , isLoggedIn: true})
+            console.log("FILTER =====>", {menuItems});
+            res.render('menus/edit-lunch-menu', {menuItems, itemNameFilter,selected,itemCount, isLoggedIn: true})
         })
         .catch(err => console.log(err))
         return
@@ -284,10 +285,10 @@ router.get('/user/lunchmenu/filter', (req, res, next) => {
     if(itemNameFilter.length && categoryFilter === "All Categories"){
         Menu.find({itemName: itemNameFilter, menuType: "Lunch"})
         .then(menuItems =>{
+            const itemCount = menuItems.length
             selected = categoryFilter
-
             console.log("LINE 267 FILTER =====>", {menuItems});
-            res.render('menus/edit-lunch-menu', {menuItems, itemNameFilter: itemNameFilter.replace(/^\s+|\s+$/g,'').split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()).join(' '), selected , isLoggedIn: true})
+            res.render('menus/edit-lunch-menu', {menuItems, itemNameFilter,selected,itemCount, isLoggedIn: true})
         })
         .catch(err => console.log(err))
         return
@@ -296,23 +297,66 @@ router.get('/user/lunchmenu/filter', (req, res, next) => {
     if(itemNameFilter.length && categoryFilter !== "All Categories"){
         Menu.find({itemName: itemNameFilter, category: categoryFilter, menuType: "Lunch"})
         .then(menuItems =>{
+            const itemCount = menuItems.length
             selected = categoryFilter
             console.log("LINE 267 FILTER =====>", {menuItems});
-            res.render('menus/edit-lunch-menu', {menuItems, itemNameFilter: itemNameFilter.replace(/^\s+|\s+$/g,'').split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()).join(' '), selected , isLoggedIn: true})
+
+            res.render('menus/edit-lunch-menu', {menuItems, itemNameFilter,selected,itemCount, isLoggedIn: true})
         })
         .catch(err => console.log(err))
         return
     }
-    // Menu.find()
+})
+router.get('/user/dinnermenu/filter', (req, res, next) => {
+    const {categoryFilter} = req.query
+    let {itemNameFilter, selected} = req.query
+    itemNameFilter = itemNameFilter.replace(/^\s+|\s+$/g,'').split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()).join(' ')
+    if(itemNameFilter.length < 1 && categoryFilter === "All Categories"){
+        Menu.find({ menuType: "Dinner" })
+        .then(menuItems =>{
+            const itemCount = menuItems.length
+            console.log("FILTER =====>", {menuItems});
+            selected = "All Categories"
+            res.render('menus/edit-dinner-menu', {menuItems, itemNameFilter,selected,itemCount, isLoggedIn: true})
+        })
+        .catch(err => console.log(err))
+        return
 
-    //     .then(find => {
-    //         console.log("find =====> ", { category: find });
-    //         res.render('menus/edit-dinner-menu', { category: find })
-    //     })
-    //     .catch(error => {
-    //         console.error('Error creating menu item:', error);
-    //         res.render('menus/edit-dinner-menu', { errorMessage: 'Failed to Delete menu item' });
-    //     });
+    }
+    if(itemNameFilter.length < 1 && categoryFilter !== "All Categories"){   
+        Menu.find({category: categoryFilter, menuType: "Dinner"})
+        .then(menuItems =>{
+            const itemCount = menuItems.length
+            selected = categoryFilter
+            console.log("LINE 267 FILTER =====>", {menuItems});
+            res.render('menus/edit-dinner-menu', {menuItems, itemNameFilter,selected,itemCount, isLoggedIn: true})
+        })
+        .catch(err => console.log(err))
+        return
+    }
+    if(itemNameFilter.length && categoryFilter === "All Categories"){
+        Menu.find({itemName: itemNameFilter, menuType: "Dinner"})
+        .then(menuItems =>{
+            selected = categoryFilter
+            const itemCount = menuItems.length
+            console.log("LINE 267 FILTER =====>", {menuItems});
+            res.render('menus/edit-dinner-menu', {menuItems, itemNameFilter,selected,itemCount, isLoggedIn: true})
+        })
+        .catch(err => console.log(err))
+        return
+    }
+
+    if(itemNameFilter.length && categoryFilter !== "All Categories"){
+        Menu.find({itemName: itemNameFilter, category: categoryFilter, menuType: "Dinner"})
+        .then(menuItems =>{
+            selected = categoryFilter
+            const itemCount = menuItems.length
+            console.log("LINE 267 FILTER =====>", {menuItems});
+            res.render('menus/edit-dinner-menu', {menuItems, itemNameFilter,selected,itemCount, isLoggedIn: true})
+        })
+        .catch(err => console.log(err))
+        return
+    }
 })
 
 module.exports = router;
