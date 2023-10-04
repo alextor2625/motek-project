@@ -78,9 +78,19 @@ nav {
 
 .btn-forms {
   margin-top: 1rem;
+  padding: 0.5rem 0rem;
   border-radius: 1rem;
   border: 1px solid black;
+  font-family: var(--font-slab);
+  background-color: var(--primary-yellow);
+  color: white;
   cursor: pointer;
+}
+
+.btn-forms:hover {
+  background-color: var(--light-grey);
+  color: var;
+  border: none;
 }
 
 .btn-cancel {
@@ -394,4 +404,85 @@ span {
 
 .content-wrapper {
   flex: 1;
+}
+
+.filter-container-add {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.filter-container-add>div>a {
+  text-decoration: none;
+  color: white;
+}
+
+.filter-partials {
+  font-family: var(--font-slab);
+  font-weight: bold;
+  padding: 0.6rem 0.6rem;
+  /* height: 59px; */
+  background-color: var(--light-grey);
+  color: var(--dark-grey);
+  border: none;
+  border-bottom: 1px solid black;
+  border-radius: 4px;
+}
+
+.chosen-meal {
+  color: var(--primary-yellow);
+}
+
+#categoryFilter {
+  font-family: var(--font-slab);
+}
+
+#itemNameFilter {
+  font-family: var(--font-slab);
+}
+
+.filter-submit {
+  font-family: var(--font-slab);
+  color: white;
+  background-color: var(--primary-yellow);
+  border: 1px solid black;
+  border-radius: 4px;
+}
+
+.filter-submit:hover {
+  cursor: pointer;
+  background-color: var(--blue);
+}
+
+.add-points-title {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.add-points-nav {
+  margin-top: 0rem;
+  align-items: center;
+}
+
+.hidden {
+  display: none;
+}
+
+.myCartbtn {
+  padding: 0.5rem 4rem;
+  margin-left: 1rem;
+}
+
+.add-more-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.selected-items {
+  margin-top: 1rem;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
 }

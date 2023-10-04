@@ -1,13 +1,13 @@
 <div class="index-body">
-<h1>Add your points</h1>
 
-<nav>
+<nav class="add-points-nav">
     <div class="to-left">
+     <h1 class="add-points-title">Add your points</h1>
        
     </div>
 
     <div class="to-right goback-link">
-        <a href="javascript:history.back()" id="goback-link">Go Back</a>
+        <a href="/rewards/addyourpoints" id="goback-link">Go Back</a>
     </div>
 </nav>
 
@@ -26,9 +26,36 @@
 
 
 {{else}}
-<h1>{{chosenMeal}} Page</h1>
+<h1 class="chosen-meal">{{chosenMeal}} Page</h1>
 <h2>Select what you eat below:</h2>
+
+<div class="filter-container-add">
+    <div>
 {{>menuFilter this route="/rewards/addyourpoints/filter"}}
+    </div>
+
+    {{#if addedItems}}
+    <div>
+    <a href="/rewards/myCart" class="layout-links myCartbtn">My Cart</a>
+    </div>
+<div class="items-cont">
+    {{#each addedItems}}
+        <div class="items">
+            <div>
+                <h4 class="item-name">{{itemName}}</h4>
+                <h4>Category: <span>{{category}}</span></h4>
+                <h4>Calories: <span>{{calories}}</span></h4>
+                <p>{{description}}</p>
+            </div>
+        </div>
+    {{/each}}
+    </div>
+{{else}}
+    <div class="hidden">
+        <a href="/rewards/myCart" class="layout-links">My Cart</a>
+    </div>
+{{/if}}
+</div>
 
 <div class="items-container">
  {{#each picked}}
@@ -39,15 +66,14 @@
                 <h4>Calories: <span>{{calories}}</span></h4>
                 <p>{{description}}</p>
             </div>
-            <div class="item-btns">
-                <a href="/">Add</a>
-            </div>
+            
+                <form action="/rewards/addyourpoints/{{chosen}}/{{_id}}" class="item-btns" method="post">
+                    <button type="submit">Add</button>
+                </form>
+        
         </div>
     {{/each}}
 </div>
 
 {{/if}}
 </div>
-
-
-{{!-- Find by ID, form with post request     /addyourpoints/:_id --}}

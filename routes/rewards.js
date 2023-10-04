@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 const User = require('../models/User');
 const Menu = require('../models/Menu');
+const Meal = require('../models/Meal');
 
 
 
@@ -32,34 +33,99 @@ router.get('/addyourpoints', (req, res, next) => {
 router.post('/addyourpoints', (req, res, next) => {
     const isLoggedIn = req.session.user ? true : false;
     const chosenMeal = req.body.meal
-    console.log('line 35 - Chosen Meal Value:', chosenMeal);
+    // console.log('line 35 - Chosen Meal Value:', chosenMeal);
 
     Menu.find({ menuType: chosenMeal })
         .then(picked => {
-            console.log('line 39 - Chosen Meal:', picked)
-            res.render('rewards/add-points.hbs', { isLoggedIn: true, showForm: false, picked, chosenMeal })
+            // console.log('line 39 - Chosen Meal:', picked)
+            picked = picked.map((item) => {
+                return { ...item._doc, chosen: chosenMeal }
+            })
+            res.render('rewards/add-points.hbs', { isLoggedIn: true, showForm: false, showCart: false, picked, chosenMeal })
         })
         .catch((err) => {
             console.error('Error retrieving menu items:', err);
             next(err);
         })
 })
+// Select & Add an element to cart ------------------------
+router.post('/addyourpoints/:menuType/:itemId', (req, res, next) => {
+    const isLoggedIn = req.session.user ? true : false;
+    console.log('Adding Item:', req.session, req.params)
+
+    const fetchAndRenderMenu = (chosenMealType, sessionMeal) => {
+        Menu.find({ menuType: chosenMealType })
+            .then(picked => {
+                picked = picked.map((item) => {
+                    return { ...item._doc, chosen: chosenMealType }
+                });
+                const addedItems = sessionMeal && sessionMeal.menuItems && sessionMeal.menuItems.length > 0;
+                res.render('rewards/add-points.hbs', { isLoggedIn, showForm: false, picked, chosenMeal: chosenMealType, addedItems });
+            })
+            .catch(err => {
+                console.error('Error retrieving menu items:', err);
+                next(err);
+            });
+    };
+
+    if (req.session.meal) {
+        Meal.findByIdAndUpdate(
+            req.session.meal._id,
+            { $push: { menuItems: req.params.itemId } },
+            { new: true }
+        )
+            .then(updatedMeal => {
+                console.log("New item ===>", updatedMeal);
+                req.session.meal = updatedMeal;
+                fetchAndRenderMenu(req.params.menuType, updatedMeal);
+            })
+            .catch(err => {
+                console.error('Error updating meal:', err);
+                next(err);
+            });
+    } else {
+        Meal.create({ menuItems: req.params.itemId })
+            .then(newMeal => {
+                console.log("New meal ===>", newMeal);
+                req.session.meal = newMeal;
+                fetchAndRenderMenu(req.params.menuType, newMeal);
+            })
+            .catch(err => {
+                console.error('Error creating meal:', err);
+                next(err);
+            });
+    }
+});
+
+
+router.get('/myCart', (req, res, next) => {
+    console.log('My cart')
+    const itemId = req.session.meal._id
+    console.log('ItemId', itemId)
+
+    Meal.findById(itemId)
+        .populate('menuItems')
+        .then(addedItems => {
+            console.log('added items:', addedItems)
+            res.render('rewards/submit-rewards.hbs', { isLoggedIn: true, showForm: false, addedItems: addedItems.menuItems });
+        })
+})
 
 // Filter -------------------------------------------------
 
 router.get('/addyourpoints/filter', (req, res, next) => {
-    const {categoryFilter } = req.query
+    const { categoryFilter } = req.query
     let { itemNameFilter, selected } = req.query
-    itemNameFilter = itemNameFilter.replace(/^\s+|\s+$/g,'').split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()).join(' ')
+    itemNameFilter = itemNameFilter.replace(/^\s+|\s+$/g, '').split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()).join(' ')
 
     if (itemNameFilter.length < 1 && categoryFilter === "All Categories") {
         Menu.find({ menuType: "Lunch" })
-        .then(picked => {
-            console.log("FILTER =====>", { picked });
-            selected = "All Categories"
-            res.render('rewards/add-points', { picked, itemNameFilter, selected, chosenMeal: "Lunch", isLoggedIn: true })
-        })
-        .catch(err => console.log(err))
+            .then(picked => {
+                console.log("FILTER =====>", { picked });
+                selected = "All Categories"
+                res.render('rewards/add-points', { picked, itemNameFilter, selected, chosenMeal: "Lunch", isLoggedIn: true })
+            })
+            .catch(err => console.log(err))
         return
     }
     if (itemNameFilter.length < 1 && categoryFilter !== "All Categories") {
@@ -77,7 +143,7 @@ router.get('/addyourpoints/filter', (req, res, next) => {
             .then(picked => {
                 selected = categoryFilter
                 console.log("LINE 267 FILTER =====>", { picked });
-                res.render('rewards/add-points', { picked, itemNameFilter,selected, chosenMeal: "Lunch", isLoggedIn: true })
+                res.render('rewards/add-points', { picked, itemNameFilter, selected, chosenMeal: "Lunch", isLoggedIn: true })
             })
             .catch(err => console.log(err))
         return
@@ -87,7 +153,7 @@ router.get('/addyourpoints/filter', (req, res, next) => {
             .then(picked => {
                 selected = categoryFilter
                 console.log("LINE 267 FILTER =====>", { picked });
-                res.render('rewards/add-points', { picked, itemNameFilter,selected, chosenMeal: "Lunch", isLoggedIn: true })
+                res.render('rewards/add-points', { picked, itemNameFilter, selected, chosenMeal: "Lunch", isLoggedIn: true })
             })
             .catch(err => console.log(err))
         return
