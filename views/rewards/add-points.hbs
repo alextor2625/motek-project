@@ -24,11 +24,19 @@
     <input type="submit" value="Choose">
 </form>
 
+{{else}}
+{{log selected chosenMeal}}
+{{#if selected }}
+<h1>{{selected.chosenMeal}} Page</h1>
+<h2>Select what you eat below:</h2>
 
+{{>menuFilterDinamic selected }}
 {{else}}
 <h1>{{chosenMeal}} Page</h1>
 <h2>Select what you eat below:</h2>
-{{>menuFilter this route="/rewards/addyourpoints/filter"}}
+{{>menuFilterDinamic chosenMeal }}
+{{/if}}
+
 
 <div class="items-container">
  {{#each picked}}
@@ -46,8 +54,8 @@
     {{/each}}
 </div>
 
-{{/if}}
-</div>
 
+</div>
+{{/if}}
 
 {{!-- Find by ID, form with post request     /addyourpoints/:_id --}}
