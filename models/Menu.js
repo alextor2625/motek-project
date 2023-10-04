@@ -11,7 +11,6 @@ const Menu = new Schema({
         type: String,
         required: true,
         trim: true,
-        unique: true
     },
     category: {
         type: String,

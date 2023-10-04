@@ -73,7 +73,7 @@ router.get('/addyourpoints/filter', (req, res, next) => {
         return
     }
     if (itemNameFilter.length && categoryFilter === "All Categories") {
-        Menu.find({ itemName: itemNameFilter, menuType: "Lunch" })
+        Menu.find({ itemName: {"$regex": `${itemNameFilter}`,  "$options": "i"}, menuType: "Lunch" })
             .then(picked => {
                 selected = categoryFilter
                 console.log("LINE 267 FILTER =====>", { picked });
@@ -83,7 +83,7 @@ router.get('/addyourpoints/filter', (req, res, next) => {
         return
     }
     if (itemNameFilter.length && categoryFilter !== "All Categories") {
-        Menu.find({ itemName: itemNameFilter, category: categoryFilter, menuType: "Lunch" })
+        Menu.find({ itemName: {"$regex": `${itemNameFilter}`,  "$options": "i"}, category: categoryFilter, menuType: "Lunch" })
             .then(picked => {
                 selected = categoryFilter
                 console.log("LINE 267 FILTER =====>", { picked });
