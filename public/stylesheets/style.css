@@ -1,20 +1,42 @@
+:root {
+  --font-cursivo: 'Sacramento', cursive;
+  --font-slab: 'Roboto Slab', serif;
+  --font-bebas: 'Bebas Neue', sans-serif;
+  --primary-yellow: #d5b359;
+  --dark-grey: #626262;
+  --blue: #304A97;
+  --light-grey: rgba(241, 239, 235, 0.945);
+}
+
 body {
-  padding: 50px;
+  margin: 0;
+  width: 100%;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  /* Esto asegura que los hijos (header, main, footer) se apilen verticalmente. */
+  min-height: 100vh;
+}
+
+h1 {
+  font-family: var(--font-bebas);
+  font-weight: lighter;
 }
 
 .layout-links {
-  color: black;
+  color: white;
   text-decoration: none;
   margin-left: 2rem;
-  background-color: rgb(228, 224, 224);
-  padding: 0.8rem;
-  border-radius: 0.4rem;
-  border: 1px solid black;
+  background-color: var(--blue);
+  padding: 0.8rem 2rem;
+  width: 1.5rem;
+  border-radius: 2rem;
+  border: none;
+  font-family: var(--font-slab);
 }
 
 .layout-links:hover {
-  background-color: rgb(193, 190, 190);
+  background-color: var(--primary-yellow);
 }
 
 .layout-links:nth-of-type(1) {
@@ -26,9 +48,9 @@ body {
 }
 
 .border-nav {
-  margin-top: 2rem;
+  margin: 2rem 4rem;
   height: 0.2rem;
-  background-color: rgb(177, 177, 74);
+  background-color: var(--primary-yellow);
   border-radius: 0.25rem;
   border: none;
 }
@@ -36,6 +58,8 @@ body {
 nav {
   display: flex;
   justify-content: space-between;
+  margin: 0rem 4rem;
+  margin-top: 2rem;
 }
 
 .form-orientation {
@@ -47,24 +71,9 @@ nav {
 .form-title {
   display: flex;
   justify-content: center;
-}
-
-.centered-labels {
-  text-align: center;
-  color: white;
-  background-color: rgb(177, 177, 74);
-  border-radius: 0.5rem;
-  margin-top: 1rem;
-  border: 1px solid black;
-  height: 1.2rem;
-}
-
-.inputs-form {
-  margin-top: 1rem;
-  border-radius: 1rem;
-  border: 1px solid black;
-  text-align: center;
-  height: 1.5rem;
+  font-family: var(--font-cursivo);
+  color: var(--primary-yellow);
+  font-size: 24px;
 }
 
 .btn-forms {
@@ -151,6 +160,7 @@ nav {
 .items {
   text-align: center;
   border: 2px solid black;
+  margin-bottom: 2rem;
 }
 
 .items:hover {
@@ -300,10 +310,23 @@ span {
 
 .points-title {
   font-size: 1rem;
+  font-family: var(--font-slab);
+  color: black;
+}
+
+.points-title>span {
+  color: var(--primary-yellow);
 }
 
 .rewards-username {
+  font-family: var(--font-slab);
   font-size: 1rem;
+}
+
+.rewards-username>span {
+  /* font-family: var(--font-slab);
+  font-size: 1rem; */
+  color: var(--primary-yellow);
 }
 
 .text-rewards {
@@ -318,11 +341,17 @@ span {
 
 .reward-layout-btns>a {
   text-decoration: none;
-  color: black;
-  background-color: rgb(132, 189, 236);
+  color: white;
+  background-color: var(--blue);
+  font-family: var(--font-slab);
   padding: 0.5rem;
   border: 1px solid black;
   border-radius: 4px;
+}
+
+.reward-layout-btns>a:hover {
+  background-color: var(--light-grey);
+  color: black;
 }
 
 .goback-link {
@@ -336,4 +365,33 @@ span {
   padding: 0.5rem;
   border: 1px solid black;
   border-radius: 4px;
+}
+
+.user-inputs {
+  margin-bottom: 1rem;
+  font-family: var(--font-slab);
+  font-weight: bold;
+  /* padding: 0.6rem 0rem; */
+  height: 59px;
+  background-color: var(--light-grey);
+  color: var(--dark-grey);
+  border: none;
+  border-bottom: 1px solid black;
+  border-radius: 4px;
+}
+
+.footer-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  color: white;
+  background-color: var(--blue);
+}
+
+.index-body {
+  margin: 0rem 4rem;
+}
+
+.content-wrapper {
+  flex: 1;
 }
