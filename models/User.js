@@ -28,6 +28,10 @@ const userSchema = new Schema(
       enum: [true, false],
       required: true,
       default: false
+    },
+    points: {
+      type: Number,
+      default: 0
     }
   },
   {

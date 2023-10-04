@@ -195,7 +195,6 @@ span {
 }
 
 .item-edit-name {
-  /* background-color: red; */
   width: 11rem;
   margin-bottom: 0.5rem;
 }
@@ -213,7 +212,7 @@ span {
 }
 
 .items-edit-save {
-  width: 11.5rem;   
+  width: 11.5rem;
   padding: 0.6rem;
   margin-top: 1rem;
   border: 1px solid black;
@@ -239,13 +238,13 @@ span {
   display: flex;
 }
 
-.menu-options > div > ul{
+.menu-options>div>ul {
   list-style-type: none;
   padding: 0;
   margin-right: 1rem;
 }
 
-.menu-options > div > ul  > li > a {
+.menu-options>div>ul>li>a {
   text-decoration: none;
   color: black;
   background-color: white;
@@ -254,8 +253,8 @@ span {
   border-radius: 5px;
 }
 
-.menu-options > div > ul  > li > a:hover {
- color: red;
+.menu-options>div>ul>li>a:hover {
+  color: red;
 }
 
 .rewards-options {
@@ -263,7 +262,7 @@ span {
   padding: 0;
 }
 
-.rewards-options > li > a {
+.rewards-options>li>a {
   text-decoration: none;
   color: black;
   background-color: white;
@@ -271,7 +270,8 @@ span {
   padding: 1rem;
   border-radius: 5px;
 }
-.rewards-options > li > a:hover {
+
+.rewards-options>li>a:hover {
   color: red;
 }
 
@@ -282,7 +282,58 @@ span {
 .menu-title {
   margin-left: 2rem;
 }
-/* .rewards-options > ul {
-  list-style-type: none;
-  padding: 0;
-} */
+
+.rewards-layout {
+  display: flex;
+}
+
+.rewards-layout>button {
+  margin: 1rem;
+  width: 50%;
+}
+
+.ai-meal-plan {
+  background-color: red;
+  border: 1px solid black;
+  color: white;
+}
+
+.points-title {
+  font-size: 1rem;
+}
+
+.rewards-username {
+  font-size: 1rem;
+}
+
+.text-rewards {
+  display: flex;
+  gap: 1rem;
+}
+
+.rewards-nav {
+  margin-top: 2rem;
+  align-items: center;
+}
+
+.reward-layout-btns>a {
+  text-decoration: none;
+  color: black;
+  background-color: rgb(132, 189, 236);
+  padding: 0.5rem;
+  border: 1px solid black;
+  border-radius: 4px;
+}
+
+.goback-link {
+  margin-top: 0.8rem;
+}
+
+#goback-link {
+  text-decoration: none;
+  color: black;
+  background-color: rgb(132, 189, 236);
+  padding: 0.5rem;
+  border: 1px solid black;
+  border-radius: 4px;
+}
