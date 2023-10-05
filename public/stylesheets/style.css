@@ -173,8 +173,8 @@ nav {
   border-radius: 1rem;
   margin-bottom: 2rem;
   background-color: var(--primary-yellow);
-    color: var(--blue);
-    font-family: var(--font-slab);
+  color: var(--blue);
+  font-family: var(--font-slab);
 }
 
 .items:hover {
@@ -187,16 +187,16 @@ span {
 
 .item-name {
   color: black;
-    font-weight: bold;
-    text-align: center;
-  }
-  
-  .items>div>h4 {
-    margin-left: 1rem;
-  }
-  
-  .items>div>p {
-    margin-left: 1rem;
+  font-weight: 500;
+  text-align: center;
+}
+
+.items>div>h4 {
+  margin-left: 1rem;
+}
+
+.items>div>p {
+  margin-left: 1rem;
 }
 
 .item-btns {
@@ -215,7 +215,7 @@ span {
 
 .item-btns>a:hover {
   background-color: var(--blue);
-    color: white;
+  color: white;
 }
 
 .items-edit {
