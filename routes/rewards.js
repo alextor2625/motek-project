@@ -26,12 +26,34 @@ router.get('/seeRewards', (req, res, next) => {
 // Get 
 router.get('/addyourpoints', (req, res, next) => {
     const isLoggedIn = req.session.user ? true : false;
+    let { chosenMeal } = req.session
+    console.log('menuType',chosenMeal);
+    console.log("41 =>",req.session.meal.menuItems, req.session.meal.menuItems.length<1);
+    if(req.query.showForm === 'false'){
+        Menu.find({ menuType: chosenMeal })
+        .then(picked => {
+            picked = picked.map((item) => {
+                return { ...item._doc, chosen: chosenMeal }
+            })
+            if(req.session.meal.menuItems.length < 1){
 
-    res.render('rewards/add-points.hbs', { isLoggedIn: true, showForm: true })
+                res.render('rewards/add-points.hbs', { isLoggedIn: true, showForm: false, addedItems: false, picked, chosenMeal })
+            }else {
+                res.render('rewards/add-points.hbs', { isLoggedIn: true, showForm: false, addedItems: true, picked, chosenMeal })
+            }
+        })
+        .catch((err) => {
+            console.error('Error retrieving menu items:', err);
+            next(err);
+        })
+    } else{
+        res.render('rewards/add-points.hbs', { isLoggedIn: true, showForm: true })
+    }
 })
 // Post
 router.post('/addyourpoints', (req, res, next) => {
     const isLoggedIn = req.session.user ? true : false;
+    req.session.chosenMeal = req.body.meal 
     const chosenMeal = req.body.meal
     // console.log('line 35 - Chosen Meal Value:', chosenMeal);
 
