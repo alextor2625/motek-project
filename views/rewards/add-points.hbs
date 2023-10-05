@@ -26,9 +26,17 @@
 
 
 {{else}}
-<h1>{{chosenMeal}} Page</h1>
-<h2>Select what you eat below:</h2>
-{{>menuFilter this route="/rewards/addyourpoints/filter"}}
+{{log selected chosenMeal}}
+    {{#if selected }}
+    <h1>{{selected.chosenMeal}} Page</h1>
+    <h2>Select what you eat below:</h2>
+
+    {{>menuFilterDinamic selected }}
+    {{else}}
+    <h1>{{chosenMeal}} Page</h1>
+    <h2>Select what you eat below:</h2>
+    {{>menuFilterDinamic chosenMeal }}
+    {{/if}}
 
 <div class="items-container">
  {{#each picked}}
