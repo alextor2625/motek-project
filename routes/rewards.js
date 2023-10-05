@@ -204,46 +204,47 @@ router.post('/myCart/delete/:item', async (req, res, next) => {
 // Filter -------------------------------------------------
 
 router.get('/addyourpoints/filter', (req, res, next) => {
-    const { categoryFilter } = req.query
-    let { itemNameFilter, selected } = req.query
-    itemNameFilter = itemNameFilter.replace(/^\s+|\s+$/g, '').split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()).join(' ')
+    console.log("body 😊", req.query)
+    const {categoryFilter } = req.query
+    let { itemNameFilter } = req.query
+    itemNameFilter = itemNameFilter.replace(/^\s+|\s+$/g,'').split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()).join(' ')
 
     if (itemNameFilter.length < 1 && categoryFilter === "All Categories") {
-        Menu.find({ menuType: "Lunch" })
-            .then(picked => {
-                console.log("FILTER =====>", { picked });
-                selected = "All Categories"
-                res.render('rewards/add-points', { picked, itemNameFilter, selected, chosenMeal: "Lunch", isLoggedIn: true })
-            })
-            .catch(err => console.log(err))
+        Menu.find({ menuType: req.query.chosenMeal })
+        .then(picked => {
+            console.log("FILTER =====>", { picked });
+            selected = "All Categories"
+            res.render('rewards/add-points', { picked, itemNameFilter,selected :{selected: categoryFilter, chosenMeal: req.query.chosenMeal }, isLoggedIn: true })
+        })
+        .catch(err => console.log(err))
         return
     }
     if (itemNameFilter.length < 1 && categoryFilter !== "All Categories") {
-        Menu.find({ category: categoryFilter, menuType: "Lunch" })
+        Menu.find({ category: categoryFilter, menuType: req.query.chosenMeal })
             .then(picked => {
                 selected = categoryFilter
                 console.log("LINE 267 FILTER =====>", { picked });
-                res.render('rewards/add-points', { picked, itemNameFilter, selected, chosenMeal: "Lunch", isLoggedIn: true })
+                res.render('rewards/add-points', { picked, itemNameFilter, selected :{selected: categoryFilter, chosenMeal: req.query.chosenMeal }, isLoggedIn: true })
             })
             .catch(err => console.log(err))
         return
     }
     if (itemNameFilter.length && categoryFilter === "All Categories") {
-        Menu.find({ itemName: itemNameFilter, menuType: "Lunch" })
+        Menu.find({ itemName: {"$regex": `${itemNameFilter}`,  "$options": "i"}, menuType: req.query.chosenMeal })
             .then(picked => {
                 selected = categoryFilter
                 console.log("LINE 267 FILTER =====>", { picked });
-                res.render('rewards/add-points', { picked, itemNameFilter, selected, chosenMeal: "Lunch", isLoggedIn: true })
+                res.render('rewards/add-points', { picked, itemNameFilter,selected :{selected: categoryFilter, chosenMeal: req.query.chosenMeal }, isLoggedIn: true })
             })
             .catch(err => console.log(err))
         return
     }
     if (itemNameFilter.length && categoryFilter !== "All Categories") {
-        Menu.find({ itemName: itemNameFilter, category: categoryFilter, menuType: "Lunch" })
+        Menu.find({ itemName: {"$regex": `${itemNameFilter}`,  "$options": "i"}, category: categoryFilter, menuType: req.query.chosenMeal })
             .then(picked => {
                 selected = categoryFilter
                 console.log("LINE 267 FILTER =====>", { picked });
-                res.render('rewards/add-points', { picked, itemNameFilter, selected, chosenMeal: "Lunch", isLoggedIn: true })
+                res.render('rewards/add-points', { picked, itemNameFilter,selected :{selected: categoryFilter, chosenMeal: req.query.chosenMeal }, isLoggedIn: true })
             })
             .catch(err => console.log(err))
         return

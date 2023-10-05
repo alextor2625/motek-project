@@ -26,14 +26,20 @@
 
 
     {{else}}
-    <h1 class="chosen-meal">{{chosenMeal}} Page</h1>
+    {{log selected chosenMeal}}
+    {{#if selected }}
+    <h1 class="chosen-meal">{{selected.chosenMeal}} Page</h1>
     <h2>Select what you eat below:</h2>
 
+    {{>menuFilterDinamic selected }}
+    {{else}}
+    <h1 class="chosen-meal">{{chosenMeal}} Page</h1>
+    <h2>Select what you eat below:</h2>
     <div class="filter-container-add">
         <div>
-            {{>menuFilter this route="/rewards/addyourpoints/filter"}}
+            {{>menuFilterDinamic chosenMeal }}
         </div>
-
+        {{/if}}
         {{#if addedItems}}
         <div>
             <a href="/rewards/myCart" class="layout-links myCartbtn">My Cart</a>

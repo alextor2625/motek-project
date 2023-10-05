@@ -202,15 +202,28 @@ router.get('/user/dinnermenu/edit/:itemId', isLoggedIn, (req, res, next) => {
 //done
 // -----------------------------------------------------------------------
 router.post('/user/dinnermenu/edit/:itemId', isLoggedIn, (req, res, next) => {
-    const itemId = req.params.itemId
+    const { itemId } = req.params
     const { menuType, category, calories, itemName, description } = req.body;
+    if (!itemName || !description) {
+        
+        Menu.findById(itemId)
+        .then(menuItem => {
+                menuItem.edit = true
+                return res.render('menus/edit-dinner-menu', { ...menuItem._doc, isLoggedIn: true, errorMessage: "All fields must contain a value" })
+
+            })
+            .catch(error => {
+                console.error('Error on POST /user/dinnermenu/edit/:itemId editing menu item:', error);
+                // res.render('menus/edit-dinner-menu', { errorMessage: 'Failed to create menu item' });
+            });
+            return
+    }
     Menu.findByIdAndUpdate(itemId, {
         menuType,
         category,
         calories,
-        itemName: itemName.replace(/^\s+|\s+$/g, '').split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()).join(' '),
-        description: description.replace(/^\s+|\s+$/g, '').charAt(0).toUpperCase() + description.replace(/^\s+|\s+$/g, '').slice(1).toLowerCase()
-
+        itemName: itemName.replace(/^\s+|\s+$/g,'').split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()).join(' '),
+        description: description.replace(/^\s+|\s+$/g,'').charAt(0).toUpperCase()+description.replace(/^\s+|\s+$/g,'').slice(1).toLowerCase()
     }, { new: true })
         .then(udpated => {
             udpated.edit = false
@@ -219,7 +232,7 @@ router.post('/user/dinnermenu/edit/:itemId', isLoggedIn, (req, res, next) => {
         })
         .catch(error => {
             console.error('Error creating menu item:', error);
-            res.render('menus/edit-dinner-menu', { errorMessage: 'Failed to create menu item' });
+            res.render('menus/edit-dinner-menu', { errorMessage: 'Failed to edit menu item' });
         });
 })
 
@@ -285,24 +298,24 @@ router.get('/user/lunchmenu/filter', (req, res, next) => {
             .catch(err => console.log(err))
         return
     }
-    if (itemNameFilter.length && categoryFilter === "All Categories") {
-        Menu.find({ itemName: itemNameFilter, menuType: "Lunch" })
-            .then(menuItems => {
-                const itemCount = menuItems.length
-                selected = categoryFilter
-                console.log("LINE 267 FILTER =====>", { menuItems });
-                res.render('menus/edit-lunch-menu', { menuItems, itemNameFilter, selected, itemCount, isLoggedIn: true })
-            })
-            .catch(err => console.log(err))
+    if(itemNameFilter.length && categoryFilter === "All Categories"){
+        Menu.find({itemName: {"$regex": `${itemNameFilter}`,  "$options": "i"}, menuType: "Lunch"})
+        .then(menuItems =>{
+            const itemCount = menuItems.length
+            selected = categoryFilter
+            console.log("LINE 267 FILTER =====>", {menuItems});
+            res.render('menus/edit-lunch-menu', {menuItems, itemNameFilter,selected,itemCount, isLoggedIn: true})
+        })
+        .catch(err => console.log(err))
         return
     }
 
-    if (itemNameFilter.length && categoryFilter !== "All Categories") {
-        Menu.find({ itemName: itemNameFilter, category: categoryFilter, menuType: "Lunch" })
-            .then(menuItems => {
-                const itemCount = menuItems.length
-                selected = categoryFilter
-                console.log("LINE 267 FILTER =====>", { menuItems });
+    if(itemNameFilter.length && categoryFilter !== "All Categories"){
+        Menu.find({itemName: {"$regex": `${itemNameFilter}`,  "$options": "i"}, category: categoryFilter, menuType: "Lunch"})
+        .then(menuItems =>{
+            const itemCount = menuItems.length
+            selected = categoryFilter
+            console.log("LINE 267 FILTER =====>", {menuItems});
 
                 res.render('menus/edit-lunch-menu', { menuItems, itemNameFilter, selected, itemCount, isLoggedIn: true })
             })
@@ -337,27 +350,27 @@ router.get('/user/dinnermenu/filter', (req, res, next) => {
             .catch(err => console.log(err))
         return
     }
-    if (itemNameFilter.length && categoryFilter === "All Categories") {
-        Menu.find({ itemName: itemNameFilter, menuType: "Dinner" })
-            .then(menuItems => {
-                selected = categoryFilter
-                const itemCount = menuItems.length
-                console.log("LINE 267 FILTER =====>", { menuItems });
-                res.render('menus/edit-dinner-menu', { menuItems, itemNameFilter, selected, itemCount, isLoggedIn: true })
-            })
-            .catch(err => console.log(err))
+    if(itemNameFilter.length && categoryFilter === "All Categories"){
+        Menu.find({itemName: {"$regex": `${itemNameFilter}`,  "$options": "i"}, menuType: "Dinner"})
+        .then(menuItems =>{
+            selected = categoryFilter
+            const itemCount = menuItems.length
+            console.log("LINE 267 FILTER =====>", {menuItems});
+            res.render('menus/edit-dinner-menu', {menuItems, itemNameFilter,selected,itemCount, isLoggedIn: true})
+        })
+        .catch(err => console.log(err))
         return
     }
 
-    if (itemNameFilter.length && categoryFilter !== "All Categories") {
-        Menu.find({ itemName: itemNameFilter, category: categoryFilter, menuType: "Dinner" })
-            .then(menuItems => {
-                selected = categoryFilter
-                const itemCount = menuItems.length
-                console.log("LINE 267 FILTER =====>", { menuItems });
-                res.render('menus/edit-dinner-menu', { menuItems, itemNameFilter, selected, itemCount, isLoggedIn: true })
-            })
-            .catch(err => console.log(err))
+    if(itemNameFilter.length && categoryFilter !== "All Categories"){
+        Menu.find({itemName: {"$regex": `${itemNameFilter}`,  "$options": "i"}, category: categoryFilter, menuType: "Dinner"})
+        .then(menuItems =>{
+            selected = categoryFilter
+            const itemCount = menuItems.length
+            console.log("LINE 267 FILTER =====>", {menuItems});
+            res.render('menus/edit-dinner-menu', {menuItems, itemNameFilter,selected,itemCount, isLoggedIn: true})
+        })
+        .catch(err => console.log(err))
         return
     }
 })
