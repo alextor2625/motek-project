@@ -51,6 +51,7 @@
         </div>
         {{/if}}
     </div>
+
     <div class="items-cont">
         {{#each addedItems}}
         <div class="items">
@@ -74,12 +75,13 @@
             </div>
 
             <form action="/rewards/addyourpoints/{{chosen}}/{{_id}}" class="item-btns" method="post">
-                <button type="submit">Add</button>
+                <button type="submit" class="btn-add">Add</button>
             </form>
 
         </div>
         {{/each}}
     </div>
+
 
     {{/if}}
 </div>

@@ -1,28 +1,61 @@
-<h1>Checkout</h1>
-<div>
+<div class="index-body">
 
-    <h2>My Cart ({{itemCount}} items)</h2>
+    <h1 class="checkOut-title">Checkout</h1>
 
-    {{#if addedItems}}
-    {{#each addedItems}}
-    <div class="items">
-        <div>
-            <h4 class="item-name">{{itemName}}</h4>
-            <p>{{description}}</p>
-            <h4>Calories: <span>{{calories}}</span></h4>
-            <form action="" method="post">
-                <button>Remove</button>
-            </form>
+    <div class="checkOut-container">
+
+        <div class="checkOut-items">
+
+            <h2>My Cart ({{itemCount}} items)</h2>
+
+            {{#if addedItems}}
+            {{#each addedItems}}
+            <div class="checkOut-container2">
+
+                <div class="checkOut-container3">
+
+                    <div class="menu-photo"></div>
+
+                    <div>
+                        <h4>{{itemName}}</h4>
+                        <p>{{description}}</p>
+                        <h4>Calories: <span>{{calories}}</span></h4>
+                    </div>
+                </div>
+                <div class="checkOut-btns">
+                    <button id="minus">-</button>
+                    <button id="number-btn">1</button>
+                    <button id="plus">+</button>
+                </div>
+            </div>
+
+            {{/each}}
+            {{else}}
+            <div>
+                <p>No items selected</p>
+            </div>
+            {{/if}}
+        </div>
+
+        <div class="checkOut-summary">
+            <h2>Order Summary</h2>
+            <div class="checkOut-summary2">
+                <p>Total point: </p>
+                <span>{{totalPoints}}</span>
+                <p>Items:</p>
+                <span>{{itemCount}}</span>
+                <p>Calories: </p>
+                <span>{{calories}}</span>
+            </div>
+            <div class="checkOut-title2">
+                <h2>Add Points</h2>
+
+                <div>
+                    <input type="text" placeholder="Enter your code" class="user-inputs" id="code-enter">
+                    <a class="layout-links" id="get-points" href="/rewards/seeRewards">Get Points</a>
+                </div>
+            </div>
         </div>
     </div>
-    {{/each}}
-    {{else}}
-    <div>
-        <p>No items selected</p>
-    </div>
-    {{/if}}
-</div>
-<div>
-    <h2>Order Summary</h2>
-    <p>Total point: <span>{{totalPoints}} pts</span></p>
+
 </div>

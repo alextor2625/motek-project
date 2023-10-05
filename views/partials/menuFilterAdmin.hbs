@@ -1,38 +1,38 @@
 <div class="filter-partials">
-<form action="{{route}}" method="get">
+    <form action="{{route}}" method="get">
 
-    <label for="itemNameFilter" >Item Name: </label>
-    <input type="text" name="itemNameFilter" id="itemNameFilter" value="{{itemNameFilter}}">
+        <label for="itemNameFilter">Item Name: </label>
+        <input type="text" name="itemNameFilter" id="itemNameFilter" value="{{itemNameFilter}}">
 
 
-    <label for="categoryFilter">Catergory </label>
-    <select name="categoryFilter" id="categoryFilter">
-        {{#if selected}}
-        <option value="{{selected}}" selected id="selected" class="option-filter">{{selected}}</option>
+        <label for="categoryFilter">Catergory:</label>
+        <select name="categoryFilter" id="categoryFilter">
+            {{#if selected}}
+            <option value="{{selected}}" selected id="selected" class="option-filter">{{selected}}</option>
+            {{/if}}
+            <option value="All Categories" class="option-filter">All Categories</option>
+            <option value="All Day Brunch" class="option-filter">All Day Brunch</option>
+            <option value="Cold Mezzes" class="option-filter">Cold Mezzes</option>
+            <option value="Hot Mezzes" class="option-filter">Hot Mezzes</option>
+            <option value="Sandwiches" class="option-filter">Sandwiches</option>
+            <option value="Bowls" class="option-filter">Bowls</option>
+            <option value="Plates" class="option-filter">Plates</option>
+            <option value="Entrees" class="option-filter">Entrees</option>
+            <option value="Burgers" class="option-filter">Burgers</option>
+            <option value="Salads" class="option-filter">Salads</option>
+            <option value="Hummus" class="option-filter">Hummus</option>
+            <option value="Sides" class="option-filter">Sides</option>
+            <option value="Sweets" class="option-filter">Sweets</option>
+            <option value="Coffee" class="option-filter">Coffee</option>
+            <option value="Specialty Lattes" class="option-filter">Specialty Lattes</option>
+            <option value="Smoothies" class="option-filter">Smoothies</option>
+            <option value="Tea" class="option-filter">Tea</option>
+        </select>
+
+        <button type="submit" class="filter-submit">Search</button>
+
+        {{#if resetRoute}}
+        <a href="{{resetRoute}}">Reset</a>
         {{/if}}
-        <option value="All Categories" class="option-filter">All Categories</option>
-        <option value="All Day Brunch" class="option-filter">All Day Brunch</option>
-        <option value="Cold Mezzes" class="option-filter">Cold Mezzes</option>
-        <option value="Hot Mezzes" class="option-filter">Hot Mezzes</option>
-        <option value="Sandwiches" class="option-filter">Sandwiches</option>
-        <option value="Bowls" class="option-filter">Bowls</option>
-        <option value="Plates" class="option-filter">Plates</option>
-        <option value="Entrees" class="option-filter">Entrees</option>
-        <option value="Burgers" class="option-filter">Burgers</option>
-        <option value="Salads" class="option-filter">Salads</option>
-        <option value="Hummus" class="option-filter">Hummus</option>
-        <option value="Sides" class="option-filter">Sides</option>
-        <option value="Sweets" class="option-filter">Sweets</option>
-        <option value="Coffee" class="option-filter">Coffee</option>
-        <option value="Specialty Lattes" class="option-filter">Specialty Lattes</option>
-        <option value="Smoothies" class="option-filter">Smoothies</option>
-        <option value="Tea" class="option-filter">Tea</option>
-    </select>
-
-    <button type="submit" class="filter-submit">Search</button>
-    
-    {{#if resetRoute}}
-    <a href="{{resetRoute}}">Reset</a>
-    {{/if}}
-</form>
+    </form>
 </div>
