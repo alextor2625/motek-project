@@ -73,7 +73,7 @@ nav {
   justify-content: center;
   font-family: var(--font-cursivo);
   color: var(--primary-yellow);
-  font-size: 24px;
+  font-size: 30px;
 }
 
 .btn-forms {
@@ -168,9 +168,13 @@ nav {
 }
 
 .items {
-  text-align: center;
+  /* text-align: center; */
   border: 2px solid black;
+  border-radius: 1rem;
   margin-bottom: 2rem;
+  background-color: var(--primary-yellow);
+    color: var(--blue);
+    font-family: var(--font-slab);
 }
 
 .items:hover {
@@ -182,30 +186,36 @@ span {
 }
 
 .item-name {
-  color: red;
-  background-color: rgb(205, 200, 200);
-  padding: 0.3rem 0rem;
-  width: 90%;
-  margin: 1rem auto;
-  border: 1px solid black;
-  border-radius: 0.5px;
+  color: black;
+    font-weight: bold;
+    text-align: center;
+  }
+  
+  .items>div>h4 {
+    margin-left: 1rem;
+  }
+  
+  .items>div>p {
+    margin-left: 1rem;
 }
 
 .item-btns {
   margin-bottom: 1rem;
+  text-align: center;
 }
 
 .item-btns>a {
   text-decoration: none;
   color: black;
-  background-color: rgb(241, 241, 117);
+  background-color: var(--light-grey);
   border: 1px solid black;
   padding: 0.5rem;
   border-radius: 0.25rem;
 }
 
 .item-btns>a:hover {
-  background-color: rgb(241, 241, 197);
+  background-color: var(--blue);
+    color: white;
 }
 
 .items-edit {
