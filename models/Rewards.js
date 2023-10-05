@@ -2,18 +2,23 @@ const { Schema, model } = require('mongoose');
 
 const Rewards = new Schema(
     {
-        name: {
+        rewardName: {
             type: String,
             trim: true,
             required: true
         },
-        description: {
+        rewardType: {
+            type: String,
+            trim: true,
+            required: true,
+            enum:['Coupon','Voucher','Event']
+        },
+        rewardDescription: {
             type: String,
             trim: true
         },
         points: {
             type: Number,
-            required: true,
             default:0
         }
     }, 

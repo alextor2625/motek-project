@@ -1,53 +1,38 @@
 <h1 class="form-title">Rewards Edit</h1>
 
-<form action="/admin/user/dinnermenu/edit" method="post" class="admin-form">
+<form action="/admin/user/rewards/edit/" method="post" class="admin-form">
     <div>
 
-        <label for="menuType">Menu Type</label>
-        <select name="menuType" id="menuType">
-            <option value="Dinner">Dinner</option>
-        </select>
+        {{!-- <label for="rewardName">Reward: </label>
+        <input type="text" name="rewardName" id="rewardName">
 
-        <label for="category">Category</label>
-        <select name="category" id="category">
-            <option value="Cold Mezzes">Cold Mezzes</option>
-            <option value="Hot Mezzes">Hot Mezzes</option>
-            <option value="Sandwiches">Sandwiches</option>
-            <option value="Plates">Plates</option>
-            <option value="Entrees">Entrees</option>
-            <option value="Burgers">Burgers</option>
-            <option value="Salads">Salads</option>
-            <option value="Hummus">Hummus</option>
-            <option value="Sides">Sides</option>
-            <option value="Sweets">Sweets</option>
-            <option value="Coffee">Coffee</option>
-            <option value="Specialty Lattes">Specialty Lattes</option>
-            <option value="Smoothies">Smoothies</option>
-            <option value="Tea">Tea</option>
-        </select>
 
-        <label for="calories">Calories</label>
-        <select name="calories" id="calories">
-            <option value="0">0</option>
-            <option value="100">100</option>
-            <option value="250">250</option>
-            <option value="500">500</option>
-            <option value="750">750</option>
-            <option value="1000">1000</option>
+        <label for="rewardDescription">Description: </label>
+        <input type="text" name="rewardDescription" id="rewardDescription"> --}}
+
+        <label for="rewardType">Type:</label>
+        <select name="rewardType" id="rewardType">
+            <option value="Coupon">Coupon</option>
+            <option value="Voucher">Voucher</option>
+            <option value="Event">Event</option>
         </select>
     </div>
 
     <div class="admin-text-inputs">
         <div>
-            <label for="itemName" class="description-label"></label>
-            <input type="text" name="itemName" id="itemName" placeholder="Input the name of the item...">
+            <label for="rewardName">Reward:</label>
+            <input type="text" name="rewardName" id="rewardName">
         </div>
 
         <div>
-            <label for="description" class="description-label">
-                <input type="text" name="description" id="description" placeholder="Add a description...">
-            </label>
+            <label for="rewardDescription">Description:</label>
+            <input type="text" name="rewardDescription" id="rewardDescription">
         </div>
+
+        {{!-- <div>
+            <label for="rewardPoints">rewardPoints:</label>
+            <input type="text" name="rewardPoints" id="rewardPoints">
+        </div> --}}
     </div>
 
     <button type="submit" class="btn-admin">Add Item</button>
@@ -63,9 +48,9 @@
 </form>
 
 
-<h1 class="form-title">All Items</h1>
+{{!-- <h1 class="form-title">All Items</h1> --}}
 
-{{!-- filter --}}
+{{!-- filter
 {{>menuFilter this route="/admin/user/dinnermenu/filter" resetRoute="/admin/user/dinnermenu/edit/"}}
 {{#if item-count}}
 <h2 class="item-count">Items: <span>{{itemCount}}</span></h2>
@@ -136,4 +121,4 @@
     </div>
     {{/each}}
     {{/if}}
-</div>
+</div> --}}
