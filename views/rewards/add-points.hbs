@@ -1,45 +1,58 @@
 <div class="index-body">
-<h1>Add your points</h1>
 
-<nav>
-    <div class="to-left">
-       
-    </div>
+    <nav class="add-points-nav">
+        <div class="to-left">
+            <h1 class="add-points-title">Add your points</h1>
 
-    <div class="to-right goback-link">
-        <a href="javascript:history.back()" id="goback-link">Go Back</a>
-    </div>
-</nav>
+        </div>
 
-
-{{#if showForm}}
-<h2>What did you eat?</h2>
-<form action="/rewards/addyourpoints" method="post">
-    <label>
-        <input type="radio" name="meal" value="Lunch"> Lunch
-    </label>
-    <label>
-        <input type="radio" name="meal" value="Dinner"> Dinner
-    </label>
-    <input type="submit" value="Choose">
-</form>
+        <div class="to-right goback-link">
+            <a href="/rewards/addyourpoints" id="goback-link">Go Back</a>
+        </div>
+    </nav>
 
 
-{{else}}
-{{log selected chosenMeal}}
+    {{#if showForm}}
+    <h2>What did you eat?</h2>
+    <form action="/rewards/addyourpoints" method="post">
+        <label>
+            <input type="radio" name="meal" value="Lunch"> Lunch
+        </label>
+        <label>
+            <input type="radio" name="meal" value="Dinner"> Dinner
+        </label>
+        <input type="submit" value="Choose">
+    </form>
+
+
+    {{else}}
+    {{log selected chosenMeal}}
     {{#if selected }}
-    <h1>{{selected.chosenMeal}} Page</h1>
+    <h1 class="chosen-meal">{{selected.chosenMeal}} Page</h1>
     <h2>Select what you eat below:</h2>
 
     {{>menuFilterDinamic selected }}
     {{else}}
-    <h1>{{chosenMeal}} Page</h1>
+    <h1 class="chosen-meal">{{chosenMeal}} Page</h1>
     <h2>Select what you eat below:</h2>
-    {{>menuFilterDinamic chosenMeal }}
-    {{/if}}
+    <div class="filter-container-add">
+        <div>
+            {{>menuFilterDinamic chosenMeal }}
+        </div>
+        {{/if}}
+        {{#if addedItems}}
+        <div>
+            <a href="/rewards/myCart" class="layout-links myCartbtn">My Cart</a>
+        </div>
 
-<div class="items-container">
- {{#each picked}}
+        {{else}}
+        <div class="hidden">
+            <a href="/rewards/myCart" class="layout-links">My Cart</a>
+        </div>
+        {{/if}}
+    </div>
+    <div class="items-cont">
+        {{#each addedItems}}
         <div class="items">
             <div>
                 <h4 class="item-name">{{itemName}}</h4>
@@ -47,15 +60,26 @@
                 <h4>Calories: <span>{{calories}}</span></h4>
                 <p>{{description}}</p>
             </div>
-            <div class="item-btns">
-                <a href="/">Add</a>
-            </div>
         </div>
-    {{/each}}
+        {{/each}}
+    </div>
+    <div class="items-container">
+        {{#each picked}}
+        <div class="items">
+            <div>
+                <h4 class="item-name">{{itemName}}</h4>
+                <h4>Category: <span>{{category}}</span></h4>
+                <h4>Calories: <span>{{calories}}</span></h4>
+                <p>{{description}}</p>
+            </div>
+
+            <form action="/rewards/addyourpoints/{{chosen}}/{{_id}}" class="item-btns" method="post">
+                <button type="submit">Add</button>
+            </form>
+
+        </div>
+        {{/each}}
+    </div>
+
+    {{/if}}
 </div>
-
-{{/if}}
-</div>
-
-
-{{!-- Find by ID, form with post request     /addyourpoints/:_id --}}
