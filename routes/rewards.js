@@ -265,11 +265,12 @@ router.get('/addyourpoints/filter', (req, res, next) => {
 
 
 router.get('/submitpoints', (req,res,next) =>{
-    Meal.find()
+    Meal.findById(req.session.meal._id)
     .populate('menuItems')
     .then(foundMeal => {
-        console.log("SUBMIT POINTS ====>", foundMeal[0].menuItems);
-        res.render('rewards/submit-points', {addedItems: foundMeal[0].menuItems, itemCount: foundMeal[0].menuItems.length})
+        console.log("SUBMIT POINTS ====>", foundMeal.menuItems);
+        res.render('rewards/submit-points', {addedItems: foundMeal.menuItems, itemCount: foundMeal.menuItems.length})
+        
     })
     .catch(err => console.log(err))
 
