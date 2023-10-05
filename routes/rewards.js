@@ -211,17 +211,23 @@ router.get('/addyourpoints/filter', (req, res, next) => {
 
     if (itemNameFilter.length < 1 && categoryFilter === "All Categories") {
         Menu.find({ menuType: req.query.chosenMeal })
-            .then(picked => {
-                console.log("FILTER =====>", { picked });
-                selected = "All Categories"
-                res.render('rewards/add-points', { picked, itemNameFilter, selected: { selected: categoryFilter, chosenMeal: req.query.chosenMeal }, isLoggedIn: true })
+        .then(picked => {
+            picked = picked.map((item) => {
+                return { ...item._doc, chosen: req.query.chosenMeal }
             })
-            .catch(err => console.log(err))
+            console.log("FILTER =====>", { picked });
+            selected = "All Categories"
+            res.render('rewards/add-points', { picked, itemNameFilter,selected :{selected: categoryFilter, chosenMeal: req.query.chosenMeal }, isLoggedIn: true })
+        })
+        .catch(err => console.log(err))
         return
     }
     if (itemNameFilter.length < 1 && categoryFilter !== "All Categories") {
         Menu.find({ category: categoryFilter, menuType: req.query.chosenMeal })
             .then(picked => {
+                picked = picked.map((item) => {
+                    return { ...item._doc, chosen: req.query.chosenMeal }
+                })
                 selected = categoryFilter
                 console.log("LINE 267 FILTER =====>", { picked });
                 res.render('rewards/add-points', { picked, itemNameFilter, selected: { selected: categoryFilter, chosenMeal: req.query.chosenMeal }, isLoggedIn: true })
@@ -232,6 +238,9 @@ router.get('/addyourpoints/filter', (req, res, next) => {
     if (itemNameFilter.length && categoryFilter === "All Categories") {
         Menu.find({ itemName: { "$regex": `${itemNameFilter}`, "$options": "i" }, menuType: req.query.chosenMeal })
             .then(picked => {
+                picked = picked.map((item) => {
+                    return { ...item._doc, chosen: req.query.chosenMeal }
+                })
                 selected = categoryFilter
                 console.log("LINE 267 FILTER =====>", { picked });
                 res.render('rewards/add-points', { picked, itemNameFilter, selected: { selected: categoryFilter, chosenMeal: req.query.chosenMeal }, isLoggedIn: true })
@@ -242,6 +251,9 @@ router.get('/addyourpoints/filter', (req, res, next) => {
     if (itemNameFilter.length && categoryFilter !== "All Categories") {
         Menu.find({ itemName: { "$regex": `${itemNameFilter}`, "$options": "i" }, category: categoryFilter, menuType: req.query.chosenMeal })
             .then(picked => {
+                picked = picked.map((item) => {
+                    return { ...item._doc, chosen: req.query.chosenMeal }
+                })
                 selected = categoryFilter
                 console.log("LINE 267 FILTER =====>", { picked });
                 res.render('rewards/add-points', { picked, itemNameFilter, selected: { selected: categoryFilter, chosenMeal: req.query.chosenMeal }, isLoggedIn: true })
@@ -252,14 +264,15 @@ router.get('/addyourpoints/filter', (req, res, next) => {
 })
 
 
-router.get('/submitpoints', (req, res, next) => {
-    Meal.find()
-        .populate('menuItems')
-        .then(foundMeal => {
-            console.log("SUBMIT POINTS ====>", foundMeal[0].menuItems);
-            res.render('rewards/submit-points', { addedItems: foundMeal[0].menuItems, itemCount: foundMeal[0].menuItems.length })
-        })
-        .catch(err => console.log(err))
+router.get('/submitpoints', (req,res,next) =>{
+    Meal.findById(req.session.meal._id)
+    .populate('menuItems')
+    .then(foundMeal => {
+        console.log("SUBMIT POINTS ====>", foundMeal.menuItems);
+        res.render('rewards/submit-points', {addedItems: foundMeal.menuItems, itemCount: foundMeal.menuItems.length})
+        
+    })
+    .catch(err => console.log(err))
 
 })
 module.exports = router;
