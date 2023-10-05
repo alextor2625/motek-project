@@ -6,6 +6,7 @@ const saltRounds = 10;
 const { isLoggedIn, isLoggedOut } = require('../middleware/route-guard');
 
 const User = require('../models/User');
+const Meal = require('../models/Meal')
 
 /* GET home page. */
 router.get('/signup', isLoggedOut, (req, res, next) => {
@@ -110,6 +111,11 @@ router.post('/login', isLoggedOut, (req, res, next) => {
 })
 
 router.get('/logout', isLoggedIn, (req, res, next) => {
+    console.log(req.session.meal._id)
+    Meal.findByIdAndDelete(req.session.meal._id)
+        .then(deletedMeal => {
+            console.log("Meal Deleted ====>", deletedMeal, "Success!!")
+        })
     req.session.destroy(err => {
         if (err) next(err)
         res.redirect('/')
