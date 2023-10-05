@@ -33,3 +33,38 @@
     <a href="{{resetRoute}}">Reset</a>
     {{/if}}
 </form>
+<form action="{{route}}" method="get">
+
+    <label for="itemNameFilter" >Item Name: </label>
+    <input type="text" name="itemNameFilter" id="itemNameFilter" value="{{itemNameFilter}}">
+
+
+    <label for="categoryFilter">Catergory </label>
+    <select name="categoryFilter" id="categoryFilter">
+        {{#if selected}}
+        <option value="{{selected}}" selected id="selected">{{selected}}</option>
+        {{/if}}
+        <option value="All Categories">All Categories</option>
+        <option value="All Day Brunch">All Day Brunch</option>
+        <option value="Cold Mezzes">Cold Mezzes</option>
+        <option value="Hot Mezzes">Hot Mezzes</option>
+        <option value="Sandwiches">Sandwiches</option>
+        <option value="Bowls">Bowls</option>
+        <option value="Plates">Plates</option>
+        <option value="Entrees">Entrees</option>
+        <option value="Burgers">Burgers</option>
+        <option value="Salads">Salads</option>
+        <option value="Hummus">Hummus</option>
+        <option value="Sides">Sides</option>
+        <option value="Sweets">Sweets</option>
+        <option value="Coffee">Coffee</option>
+        <option value="Specialty Lattes">Specialty Lattes</option>
+        <option value="Smoothies">Smoothies</option>
+        <option value="Tea">Tea</option>
+    </select>
+
+    <button type="submit">Search</button>
+    {{#if resetRoute}}
+    <a href="{{resetRoute}}">Reset</a>
+    {{/if}}
+</form>
