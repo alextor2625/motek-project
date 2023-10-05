@@ -1,0 +1,28 @@
+<h1>Checkout</h1>
+<div>
+
+    <h2>My Cart ({{itemCount}} items)</h2>
+
+    {{#if addedItems}}
+    {{#each addedItems}}
+    <div class="items">
+        <div>
+            <h4 class="item-name">{{itemName}}</h4>
+            <p>{{description}}</p>
+            <h4>Calories: <span>{{calories}}</span></h4>
+            <form action="" method="post">
+                <button>Remove</button>
+            </form>
+        </div>
+    </div>
+    {{/each}}
+    {{else}}
+    <div>
+        <p>No items selected</p>
+    </div>
+    {{/if}}
+</div>
+<div>
+    <h2>Order Summary</h2>
+    <p>Total point: <span>{{totalPoints}} pts</span></p>
+</div>

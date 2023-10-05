@@ -3,6 +3,7 @@ var router = express.Router();
 const User = require('../models/User');
 const Menu = require('../models/Menu');
 const Meal = require('../models/Meal');
+const { route } = require('./admin-user');
 
 
 
@@ -27,33 +28,35 @@ router.get('/seeRewards', (req, res, next) => {
 router.get('/addyourpoints', (req, res, next) => {
     const isLoggedIn = req.session.user ? true : false;
     let { chosenMeal } = req.session
-    console.log('menuType',chosenMeal);
-    console.log("41 =>",req.session.meal.menuItems, req.session.meal.menuItems.length<1);
-    if(req.query.showForm === 'false'){
+    console.log('menuType', chosenMeal);
+    if (req.query.showForm === 'false') {
         Menu.find({ menuType: chosenMeal })
-        .then(picked => {
-            picked = picked.map((item) => {
-                return { ...item._doc, chosen: chosenMeal }
-            })
-            if(req.session.meal.menuItems.length < 1){
+            .then(picked => {
+                picked = picked.map((item) => {
+                    return { ...item._doc, chosen: chosenMeal }
+                })
+                Meal.find()
+                .then(meal => {
+                    if(!meal[0].menuItems.length){
+                        res.render('rewards/add-points.hbs', { isLoggedIn: true, showForm: false, addedItems: false, picked, chosenMeal })
+                    }else {
+                        res.render('rewards/add-points.hbs', { isLoggedIn: true, showForm: false, addedItems: true, picked, chosenMeal })
+                    }
+                })
 
-                res.render('rewards/add-points.hbs', { isLoggedIn: true, showForm: false, addedItems: false, picked, chosenMeal })
-            }else {
-                res.render('rewards/add-points.hbs', { isLoggedIn: true, showForm: false, addedItems: true, picked, chosenMeal })
-            }
-        })
-        .catch((err) => {
-            console.error('Error retrieving menu items:', err);
-            next(err);
-        })
-    } else{
+            })
+            .catch((err) => {
+                console.error('Error retrieving menu items:', err);
+                next(err);
+            })
+    } else {
         res.render('rewards/add-points.hbs', { isLoggedIn: true, showForm: true })
     }
 })
 // Post
 router.post('/addyourpoints', (req, res, next) => {
     const isLoggedIn = req.session.user ? true : false;
-    req.session.chosenMeal = req.body.meal 
+    req.session.chosenMeal = req.body.meal
     const chosenMeal = req.body.meal
     // console.log('line 35 - Chosen Meal Value:', chosenMeal);
 
@@ -245,5 +248,17 @@ router.get('/addyourpoints/filter', (req, res, next) => {
             .catch(err => console.log(err))
         return
     }
+})
+
+
+router.get('/submitpoints', (req,res,next) =>{
+    Meal.find()
+    .populate('menuItems')
+    .then(foundMeal => {
+        console.log("SUBMIT POINTS ====>", foundMeal[0].menuItems);
+        res.render('rewards/submit-points', {addedItems: foundMeal[0].menuItems, itemCount: foundMeal[0].menuItems.length})
+    })
+    .catch(err => console.log(err))
+
 })
 module.exports = router;
