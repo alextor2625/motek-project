@@ -20,7 +20,7 @@
 
         <div>
             <a href="/rewards/addyourpoints?showForm=false" class="layout-links">Add More</a>
-            <a href="/rewards/submitpoints"  class="layout-links">Submit</a>
+            <a href="/rewards/submitpoints" class="layout-links">Submit</a>
         </div>
     </div>
 
@@ -33,8 +33,8 @@
                 <h4>Calories: <span>{{calories}}</span></h4>
                 <p>{{description}}</p>
 
-                <form action="/rewards/myCart/delete/{{_id}}" method="post">
-                    <button>Delete</button>
+                <form action="/rewards/myCart/delete/{{_id}}" method="post" class="delete-form">
+                    <button class="remove-btn">Remove</button>
                 </form>
             </div>
         </div>
