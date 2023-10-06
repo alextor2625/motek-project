@@ -290,57 +290,33 @@ router.get('/confirm', (req, res, next) => {
 
 router.post('/redeem/:rewardId', (req, res, next) => {
     // const {username, fullname, rewards}
-
-    if ('redeems' in req.session.user) {
-        User.findByIdAndUpdate(req.session.user._id,
-            { $push: { redeems: req.params.rewardId } },
-            { new: true })
-            .then(updatedUser => {
-                console.log(updatedUser, "<<<<==== User Has added redeemed a reward");
-                req.session.user = updatedUser;
-                res.redirect('/rewards/content');
-            })
-    } else{
-        User.findByIdAndUpdate(req.session.user._id,
-            { redeems: req.params.rewardId },
-            { new: true })
-            .then(updatedUser => {
-                console.log(updatedUser, "<<<<==== User Has added redeemed a reward");
-                req.session.user = updatedUser;
-                res.redirect('/rewards/content');
-            })
-    }
-
-
-    // if ('redeem' in req.session) {
-    //     User.findByIdAndUpdate(
-    //         req.session.user._id,
-    //         { $push: { redeems: req.params.rewardId } },
-    //         { new: true }
-    //     )
-    //         .then(updatedUser => {
-    //             console.log("New item ===>", updatedUser);
-    //             req.session.user = updatedUser;
-    //             return updatedUser;
-    //         })
-    //         .populate('redeems')
-    //         .then()
-    //         .catch(err => {
-    //             console.error('Error updating meal:', err);
-    //             next(err);
-    //         });
-    // } else {
-    //     Meal.create({ menuItems: req.params.itemId })
-    //         .then(newMeal => {
-    //             console.log("New meal ===>", newMeal);
-    //             req.session.meal = newMeal;
-    //             fetchAndRenderMenu(req.params.menuType, newMeal);
-    //         })
-    //         .catch(err => {
-    //             console.error('Error creating meal:', err);
-    //             next(err);
-    //         });
-// }
+    Reward.findById(req.params.rewardId)
+    .then(foundReward => {
+        if(foundReward.points <= req.session.user.points){
+            if ('redeems' in req.session.user) {
+                User.findByIdAndUpdate(req.session.user._id,
+                    { $push: { redeems: req.params.rewardId}, $inc:{ points: -foundReward.points } },
+                    { new: true })
+                    .then(updatedUser => {
+                        console.log(updatedUser, "<<<<==== User Has added redeemed a reward");
+                        req.session.user = updatedUser;
+                        res.redirect('/rewards/content');
+                    })
+            } else{
+                User.findByIdAndUpdate(req.session.user._id,
+                    { redeems: req.params.rewardId, $dec:{ points: foundReward.points } },
+                    { new: true })
+                    .then(updatedUser => {
+                        console.log(updatedUser, "<<<<==== User Has added redeemed a reward");
+                        req.session.user = updatedUser;
+                        res.redirect('/rewards/content');
+                    })
+            }
+            
+        } else {
+            res.redirect('/rewards/content');
+        }
+    })
 })
 
 module.exports = router;
