@@ -38,7 +38,7 @@ const userSchema = new Schema(
         type: Schema.Types.ObjectId, 
         ref: 'Meal'}
     },
-    rewards: [{type: Schema.Types.ObjectId, ref: 'Rewards'}]
+    redeems: [{type: Schema.Types.ObjectId, ref: 'Rewards'}]
   },
   {
     timestamps: true
