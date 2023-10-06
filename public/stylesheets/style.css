@@ -3,6 +3,7 @@
   --font-slab: 'Roboto Slab', serif;
   --font-bebas: 'Bebas Neue', sans-serif;
   --primary-yellow: #d5b359;
+  --primary-yellow-light: #f1dda4;
   --dark-grey: #626262;
   --blue: #304A97;
   --light-grey: rgba(241, 239, 235, 0.945);
@@ -330,11 +331,6 @@ span {
   color: var(--primary-yellow);
 }
 
-.rewards-username {
-  font-family: var(--font-slab);
-  font-size: 1rem;
-}
-
 .rewards-username>span {
   /* font-family: var(--font-slab);
   font-size: 1rem; */
@@ -346,10 +342,7 @@ span {
   gap: 1rem;
 }
 
-.rewards-nav {
-  margin-top: 2rem;
-  align-items: center;
-}
+
 
 .reward-layout-btns>a {
   text-decoration: none;
@@ -970,3 +963,208 @@ video {
   font-size: 4rem;
   margin: 0;
 }
+
+.profile-tab {
+  display: flex;
+  flex-direction: column;
+  z-index: 2;
+}
+
+.profile-tab>a {
+  text-decoration: none;
+  color: var(--blue);
+  border: 1px solid var(--primary-yellow);
+  padding: 1rem 1rem;
+  background-color: var(--light-grey);
+}
+
+.profile-tab>a:hover {
+  border: 1px solid var(--blue);
+  background-color: var(--blue);
+  color: white;
+}
+
+#firstname>span {
+  font-family: var(--font-cursivo);
+  color: white;
+  font-size: 3.5rem;
+}
+
+
+
+
+.rewards-nav {
+  margin-top: 2rem;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+
+}
+
+.add-your-btn {
+  z-index: 1;
+}
+
+.back-color-blue {
+  height: 183px;
+  width: 100%;
+  background-color: #304A97;
+  position: absolute;
+  top: 10%;
+  z-index: 1;
+}
+
+.rewards-nav-container {
+  display: flex;
+  justify-content: space-between;
+  width: 80%;
+  position: relative;
+  margin-bottom: 2rem;
+}
+
+.profile-firstname {
+  display: flex;
+  gap: 2rem;
+}
+
+.add-your-btn>a {
+  text-decoration: none;
+  position: absolute;
+  white-space: nowrap;
+  top: 10%;
+  color: black;
+  background-color: var(--light-grey);
+  padding: 1rem;
+  border-radius: 25px;
+  font-family: var(--font-slab);
+}
+
+.add-your-btn>a:hover {
+  color: white;
+  background-color: var(--primary-yellow);
+}
+
+.no-rewards {
+  color: var(--blue);
+  text-align: center;
+  font-family: var(--font-slab);
+  font-weight: 100;
+  font-size: 2.5rem;
+}
+
+.overview-info {
+  font-family: var(--font-slab);
+  color: var(--blue);
+}
+
+.overview-info-title {
+  margin: 0rem;
+}
+
+.motek-hero>h1 {
+  text-align: center;
+  font-family: var(--font-slab);
+}
+
+.motek-hero>h1>span {
+  text-align: center;
+  font-family: var(--font-cursivo);
+  font-size: 3rem;
+}
+
+.motek-hero {
+  color: var(--blue);
+  text-align: center;
+  font-family: var(--font-slab);
+  margin: 0rem 0rem;
+}
+
+.motek-hero>p {
+  color: var(--dark-grey);
+}
+
+
+
+.redeem-rewards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-column-gap: 1rem;
+  margin-bottom: 4rem;
+}
+
+.redeem-item {
+  border: 1px solid black;
+  text-align: center;
+  font-family: var(--font-slab);
+}
+
+.redeem-item>form {
+  padding-bottom: 1rem;
+}
+
+.redeem-item>form>button {
+  padding: 1rem;
+  border: 1px solid black;
+  border-radius: 20px;
+  font-family: var(--font-slab);
+}
+
+.redeem-item>form>button:hover {
+  background-color: var(--blue);
+  cursor: pointer;
+  color: white;
+}
+
+.redeem-item>h4 {
+  color: var(--blue);
+  font-size: 1.5rem;
+}
+
+.heart-icon-container {
+  display: flex;
+  z-index: 3;
+  align-items: center;
+  background-color: var(--primary-yellow-light);
+}
+
+.heart-icon-container {
+  display: flex;
+  z-index: 3;
+  align-items: center;
+  background-color: var(--primary-yellow-light);
+}
+
+.heart-icon {
+  background-image: url('/images/heart-icon.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 47%;
+  height: 55px;
+  width: 55px;
+  border-radius: 30px;
+}
+
+#firstname {
+  color: white;
+  z-index: 2;
+}
+
+#profile-first {
+  background-color: var(--primary-yellow-light);
+  text-decoration: none;
+  color: var(--blue);
+}
+
+
+#firstname:hover {
+  color: white;
+  z-index: 2;
+}
+
+/* #profile-first:hover {
+  background-color: var(--blue);
+  color: white;
+  border-top: 1px solid var(--blue);
+  border-right: 1px solid var(--blue);
+  border-left: 1px solid var(--blue);
+} */
