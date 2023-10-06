@@ -15,9 +15,10 @@
 
 
   <nav>
-    <div class="to-left">
-      <a href="/" class="layout-links">Home</a>
-    </div>
+    <a href="/" class="to-left">
+      <div class="home-image"></div>
+    </a>
+
 
     <div class="to-right">
       {{#if isLoggedIn}}
@@ -39,14 +40,70 @@
   <footer>
     <div class="footer-container">
       <div>
+        <a href="/">
+          <div class="footer-image"></div>
+        </a>
         <p>We are a kosher-style Mediterranean restaurant with influences from our ancestors in Lebanon, Morocco,
           Turkey, Yemen and more.</p>
-        <h1 class="social-media">Social Media</h1>
+
+        <h1 class="social-media-title">Social Media</h1>
+        <div class="social-media">
+          <div>
+            <a href="/" class="facebook-photo-container">
+              <div class="facebook-photo"></div>
+            </a>
+          </div>
+          <div>
+            <a href="https://www.instagram.com/motekcafe/" class="instagram-photo-container" target="_blank">
+              <div class="instagram-photo"></div>
+            </a>
+          </div>
+        </div>
+
+      </div>
+      <div class="getStarted">
+        <h1>get started</h1>
+        <div class="getStarted-tags">
+          <p>About</p>
+          <p>Menu & Locations</p>
+          <p>Catering</p>
+          <p>Private Events</p>
+          <p>Reservations</p>
+          <p>Contacts</p>
+          <p>Careers</p>
+          <p>Press</p>
+        </div>
       </div>
 
-      <h1>get started</h1>
-      <h1>locations</h1>
-      <h1>Newsletter</h1>
+
+      <div class="locations">
+        <h1>Locations</h1>
+        <div class="locations-tags">
+          <p>Aventura</p>
+          <p>Coral Gables</p>
+          <p>Downtown Miami</p>
+          <p>Yalla Aventura</p>
+          <button class="gift-cards">Gift Cards</button>
+        </div>
+      </div>
+
+      <div class="newsletter">
+        <h1>Newsletter</h1>
+        <div class="newsletter-tags">
+          <input type="text" placeholder="First Name"></input>
+          <input type="text" placeholder="Last Name"></input>
+          <input type="text" placeholder="Email Address"></input>
+          <div>
+            <button class="subscribe">Subscribe</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="copyright-container">
+      <div class="copyrigth-logo"></div>
+      <p>2023 MOTEK CAFE. ALL RIGTHS RESERVED</p>
     </div>
   </footer>
 

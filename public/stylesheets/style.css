@@ -14,7 +14,6 @@ body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   display: flex;
   flex-direction: column;
-  /* Esto asegura que los hijos (header, main, footer) se apilen verticalmente. */
   min-height: 100vh;
 }
 
@@ -48,7 +47,7 @@ h1 {
 }
 
 .border-nav {
-  margin: 2rem 4rem;
+  margin: 1rem 4rem;
   height: 0.2rem;
   background-color: var(--primary-yellow);
   border-radius: 0.25rem;
@@ -58,6 +57,7 @@ h1 {
 nav {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   margin: 0rem 4rem;
   margin-top: 2rem;
 }
@@ -556,7 +556,7 @@ span {
   border: 2px solid var(--primary-yellow);
   font-family: var(--font-slab);
   color: var(--blue);
-  width: 50rem;
+  width: 100%;
 }
 
 .checkOut-items>h2 {
@@ -583,6 +583,7 @@ span {
 .checkOut-container {
   display: flex;
   gap: 2rem;
+  margin-bottom: 2rem;
 }
 
 .checkOut-container2 {
@@ -597,7 +598,8 @@ span {
 }
 
 .checkOut-btns {
-  margin-right: 2rem;
+  margin: 0rem 2rem;
+  white-space: nowrap;
 }
 
 .checkOut-btns>button {
@@ -631,6 +633,8 @@ span {
 }
 
 .checkOut-summary {
+  display: flex;
+  flex-direction: column;
   border: 2px solid var(--primary-yellow);
   font-family: var(--font-slab);
   color: var(--blue);
@@ -650,10 +654,9 @@ span {
 .checkOut-summary2 {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  /* justify-items: flex-start; */
+  justify-items: flex-start;
   text-align: left;
   align-items: center;
-
 }
 
 .checkOut-summary2>p {
@@ -667,26 +670,252 @@ span {
   padding-right: 1rem;
 }
 
-.checkOut-title2>h2 {
+.checkOut-title2 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+}
+
+.add-points-2 {
   background-color: white;
-  padding-left: 1rem;
+  padding: 0.5rem 5.4rem;
   margin: 0rem;
   border-bottom: 2px solid var(--primary-yellow);
   border-top: 2px solid var(--primary-yellow);
+  white-space: nowrap;
 }
 
 #code-enter {
   background-color: white;
   margin-left: 1.5rem;
-  margin-top: 2rem;
+  margin: 2rem auto
+}
+
+.get-points-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
 }
 
 #get-points {
   display: flex;
-  flex-direction: row;
   padding: 1rem 6rem;
   margin-left: 1rem;
+  margin-right: 1rem;
+  margin-top: auto;
   margin-bottom: 1rem;
   white-space: nowrap;
   justify-content: center;
+}
+
+.home-image {
+  background-image: url('/images/white-logo.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 93%;
+  height: 57px;
+  width: 150px;
+}
+
+.footer-image {
+  background-image: url('/images/logo-blue.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 93%;
+  height: 150px;
+  width: 150px;
+  margin-left: 4rem;
+}
+
+footer>div>div>p {
+  margin-left: 2rem;
+}
+
+.social-media {
+  display: flex;
+  margin-left: 2rem;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  gap: 1rem;
+}
+
+.footer-image {
+  background-image: url('/images/logo-blue.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 93%;
+  height: 150px;
+  width: 150px;
+  margin-left: 4rem;
+}
+
+.facebook-photo {
+  background-image: url('/images/logo-facebook.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 70%;
+  height: 55px;
+  width: 55px;
+  border: 1px solid var(--primary-yellow);
+  border-radius: 30px;
+}
+
+.instagram-photo {
+  background-image: url('/images/logo-instagram.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 70%;
+  height: 55px;
+  width: 55px;
+  border: 1px solid var(--primary-yellow);
+  border-radius: 30px;
+}
+
+.social-media-title {
+  margin-left: 2rem;
+}
+
+.getStarted {
+  margin-top: 1rem;
+  margin-left: 2rem;
+}
+
+.getStarted-tags {
+  margin: 0rem;
+}
+
+.locations {
+  margin-top: 1rem;
+  /* margin-left: 2rem; */
+}
+
+.gift-cards {
+  background-color: var(--blue);
+  color: var(--primary-yellow);
+  border: 1px solid var(--primary-yellow);
+  padding: 1rem;
+  border-radius: 25px;
+}
+
+.gift-cards:hover {
+  background-color: var(--light-grey);
+  border: 1px solid black;
+  color: black;
+}
+
+.newsletter {
+  margin-top: 1rem;
+  /* margin-left: 2rem; */
+}
+
+.newsletter-tags>input {
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  padding-right: 6rem;
+  border-radius: 10px;
+  border: 1px solid black;
+}
+
+.subscribe {
+  background-color: var(--primary-yellow);
+  color: white;
+  border: 1px solid black;
+  padding: 1rem 3rem;
+  border-radius: 25px;
+  font-family: var(--font-slab);
+  font-size: medium;
+}
+
+.subscribe:hover {
+  background-color: var(--light-grey);
+  border: 1px solid black;
+  color: black;
+  cursor: pointer;
+}
+
+.copyright-container {
+  background-color: var(--primary-yellow);
+  height: 55px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--blue);
+  font-weight: 600;
+}
+
+.copyrigth-logo {
+  background-image: url('/images/logo-copyrigth.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 70%;
+  height: 30px;
+  width: 30px;
+}
+
+video {
+  width: 100%;
+}
+
+.call {
+  background-color: var(--primary-yellow);
+  color: white;
+  border: none;
+  padding: 1rem 3rem;
+  border-radius: 25px;
+  font-family: var(--font-slab);
+  font-size: medium;
+  margin-bottom: 1rem;
+}
+
+.call:hover {
+  background-color: var(--light-grey);
+  color: black;
+  cursor: pointer;
+}
+
+.vid-text-container {
+  text-align: center;
+  position: absolute;
+  font-weight: 400;
+  color: white;
+  font-size: 2rem;
+  top: 25rem;
+  left: 12rem;
+}
+
+.app {
+  background-image: url('/images/app.jpeg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 70%;
+  height: 300px;
+  width: 300px;
+}
+
+.app-container {
+  display: flex;
+  justify-content: center;
+  margin: 2rem 0rem;
+}
+
+.app-title {
+  color: var(--primary-yellow);
+  font-weight: 500;
+  font-size: 3rem;
+}
+
+.app-text {
+  font-family: var(--font-slab);
+  line-height: 2;
+}
+
+.hide-hr {
+  background-color: white;
+  color: white;
+  position: absolute;
+  top: 6rem;
+  width: 100%;
 }
