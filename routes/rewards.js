@@ -10,13 +10,14 @@ const { route } = require('./admin-user');
 
 router.get('/content', (req, res, next) => {
     const isLoggedIn = req.session.user ? true : false;
-    const { fullname, username, points } = req.session.user
+    // const { fullname, username, points } = req.session.user
     console.log(req.session.user);
     if('redeems' in req.session.user){
         User.findById(req.session.user._id)
         .populate('redeems')
         .then(user =>{
             req.session.redeemed = user.redeems
+            const { fullname, username, points } = user
             Reward.find()
             .then(rewards => {
                     let {redeemed} = req.session
