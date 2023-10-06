@@ -9,6 +9,7 @@ const Reward = require('../models/Rewards')
 
 /* GET home page. */
 router.get('/user', isLoggedIn, function (req, res, next) {
+    console.log("Here");
     if (req.session.user.admin) {
         console.log("Admin User recognised");
 
