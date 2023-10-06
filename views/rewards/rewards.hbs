@@ -35,10 +35,10 @@
                 <h1 class="points-title"> Available Points: <br><span>{{points}}</span></h1>
             </div>
 
-            <div>
+            <div class="redeem-rewards">
                 {{#if redeemed}}
                 {{#each redeemed}}
-                <div>
+                <div class="redeem-item">
                     <h4>{{rewardName}}</h4>
                     <p>{{rewardType}}</p>
                     <p>{{rewardDescription}}</p>
@@ -66,7 +66,7 @@
                     <p>{{rewardType}}</p>
                     <p>{{rewardDescription}}</p>
                     <h4>{{points}}</h4>
-                    <form action="/rewards/redeem/{{_id}} method="post">
+                    <form action="/rewards/redeem/{{_id}}" method="post">
                         <button type="submit">Redeem</button>
                     </form>
                 </div>
