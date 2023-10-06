@@ -856,6 +856,7 @@ footer>div>div>p {
 }
 
 video {
+  position: relative;
   width: 100%;
 }
 
@@ -882,8 +883,9 @@ video {
   font-weight: 400;
   color: white;
   font-size: 2rem;
-  top: 25rem;
-  left: 12rem;
+  top: 34%;
+  left: 18%;
+  right: 18%;
 }
 
 .app {
@@ -918,4 +920,53 @@ video {
   position: absolute;
   top: 6rem;
   width: 100%;
+}
+
+.events-image {
+  background-image: url('/images/private-events.jpeg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100%;
+  height: 400px;
+  width: 100%;
+}
+
+.events-container {
+  margin: 0rem -4rem;
+  position: relative;
+  /* isolation: isolate !important; */
+
+}
+
+.events-text {
+  margin: 0rem;
+  font-family: var(--font-cursivo);
+  color: white;
+  font-size: 4rem;
+}
+
+.events-text2 {
+  color: white;
+}
+
+.events-container2 {
+  text-align: center;
+  position: absolute;
+  top: 17%;
+  left: 30%;
+  right: 30%;
+  padding: 2rem;
+}
+
+.sweet-heart {
+  text-align: center;
+  margin: 5rem 0rem;
+  color: var(--dark-grey);
+}
+
+.sweet-heart-text {
+  font-family: var(--font-cursivo);
+  color: var(--blue);
+  font-size: 4rem;
+  margin: 0;
 }

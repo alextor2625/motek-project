@@ -43,7 +43,6 @@ router.get('/addyourpoints', (req, res, next) => {
                             res.render('rewards/add-points.hbs', { isLoggedIn: true, showForm: false, addedItems: true, picked, chosenMeal })
                         }
                     })
-
             })
             .catch((err) => {
                 console.error('Error retrieving menu items:', err);
@@ -143,37 +142,6 @@ router.get('/myCart', (req, res, next) => {
 
 })
 
-// router.post('/myCart/delete/:item', (req, res, next) => {
-//     const itemId = req.session.meal._id
-//     console.log('Deleted Item:', itemId);
-
-//     Meal.findById(itemId)
-//         .populate('menuItems')
-//         .then(addedItems => {
-//             if (addedItems && addedItems.menuItems.length > 0) {
-//                 console.log('Deleted Item - Line 129:', itemId)
-//                 return Meal.findByIdAndDelete(itemId)
-//                     .then((deletedItem) => {
-//                         console.log('deleted item line 132:', deletedItem)
-//                         res.redirect('/rewards/myCart')
-//                     })
-//                     .catch((err) => {
-//                         console.log('Not Found:', err)
-//                     })
-//             } else {
-
-//                 Meal.find()
-//                     .then(mealCart => {
-//                         console.log('Deleted Item:', mealCart)
-//                         res.redirect('/rewards/addyourpoints');
-//                     })
-//             }
-//         })
-//         .catch((err) => {
-//             console.log('Error:', err);
-//             // next(err);
-//         });
-// })
 router.post('/myCart/delete/:item', async (req, res, next) => {
 
     const mealId = req.session.meal._id
