@@ -1,6 +1,6 @@
 <h1 class="form-title">Rewards Edit</h1>
 
-<form action="/admin/user/rewards/edit/" method="post" class="admin-form">
+<form action="/admin/user/rewards/edit/" method="post" class="admin-form form-orientation">
     <div>
 
         {{!-- <label for="rewardName">Reward: </label>
@@ -10,32 +10,32 @@
         <label for="rewardDescription">Description: </label>
         <input type="text" name="rewardDescription" id="rewardDescription"> --}}
 
-        <label for="rewardType">Type:</label>
-        <select name="rewardType" id="rewardType">
+        <label for="rewardType"></label>
+        <select name="rewardType" id="rewardType" class="user-inputs">
             <option value="Coupon">Coupon</option>
             <option value="Voucher">Voucher</option>
             <option value="Event">Event</option>
         </select>
     </div>
 
-    <div class="admin-text-inputs">
+    <div class="admin-text-inputs ">
         <div>
-            <label for="rewardName">Reward:</label>
-            <input type="text" name="rewardName" id="rewardName">
+            <label for="rewardName"></label>
+            <input type="text" name="rewardName" id="rewardName" class="user-inputs" placeholder="Reward">
         </div>
 
         <div>
-            <label for="rewardDescription">Description:</label>
-            <input type="text" name="rewardDescription" id="rewardDescription">
+            <label for="rewardDescription"></label>
+            <input type="text" name="rewardDescription" id="rewardDescription" class="user-inputs" placeholder="Description">
         </div>
 
         <div>
-            <label for="rewardPoint">rewardPoints:</label>
-            <input type="number" name="rewardPoints" id="rewardPoints">
+            <label for="rewardPoint"></label>
+            <input type="number" name="rewardPoints" id="rewardPoints" class="user-inputs" placeholder="Points">
         </div>
     </div>
 
-    <button type="submit" class="btn-admin">Add Item</button>
+    <button type="submit" class="btn-forms add-item-rewards2">Add Item</button>
 
     {{#if errorMessage}}
     <p class="error">{{errorMessage}}</p>
