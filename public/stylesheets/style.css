@@ -340,6 +340,7 @@ span {
   /* font-family: var(--font-slab);
   font-size: 1rem; */
   color: var(--primary-yellow);
+  z-index: 3;
 }
 
 .text-rewards {
@@ -1150,7 +1151,12 @@ video {
 }
 
 #firstname {
-  color: grey;
+  color: white;
+    z-index: 2;
+  }
+  
+  .rewards-username {
+    font-family: var(--font-slab);
 }
 
 #profile-first {
