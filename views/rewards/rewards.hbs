@@ -1,60 +1,79 @@
+<div class="back-color-blue">.</div>
 <div class="index-body">
-    <nav class="rewards-nav">
-        <div class="to-left text-rewards">
-            <div>
-                <a href="#firstname">{{firstname}}</a>
+    <nav class="rewards-nav-container">
+        <div class="profile-firstname">
+            <div class="profile-tab">
+                <div class="heart-icon-container">
+                    <div class="heart-icon"></div>
+                    <a href="#firstname" id="profile-first">{{firstname}}</a>
+                </div>
+
                 <a href="#overview">Overview</a>
+                <a href="#overview">Rewards</a>
+                <a href="#overview">Goals & Preferences</a>
+                <a href="#overview">Settings</a>
+
             </div>
-            <h1 class="rewards-username" id="firstname">Welcome <span>{{fullname}}</span></h1>
+            <h1 class="rewards-username" id="firstname">Welcome <br> <span>{{fullname}}</span></h1>
         </div>
 
-        <div class="to-right reward-layout-btns">
+
+        <div class="add-your-btn">
             {{!-- <a href="/rewards/seeRewards">See your rewards</a> --}}
             <a href="/rewards/addyourpoints">Add your points</a>
             {{!-- <a href="" class="ai-meal-plan">AI Meal Plan Generator</a> --}}
         </div>
     </nav>
 
+
     <div>
-        <div>
-            {{#if redeemed}}
-            {{#each redeemed}}
-            <div>
-                <h4>{{rewardName}}</h4>
-                <p>{{rewardType}}</p>
-                <p>{{rewardDescription}}</p>
+
+
+        <div id="overview">
+            <div class="overview-info">
+                <h2 class="overview-info-title">My Rewards:</h2>
+                <h1 class="points-title"> Available Points: <br><span>{{points}}</span></h1>
             </div>
-            {{/each}}
-            {{else}}
-            <h2>You dont have any rewards</h2>
-            {{/if}}
 
-    </div>
-
-    <div id="overview">
-
-        <h2>My Rewards:</h2>
-        <h1 class="points-title"> Available Points: <br><span>{{points}}</span></h1>
-
-
-        <h1>As a <span>Motek Hero</span></h1>
-        <p>you'll have access to these rewards</p>
-        <div>
-            {{#if rewards}}
-            {{#each rewards}}
             <div>
-                <h4>{{rewardName}}</h4>
-                <p>{{rewardType}}</p>
-                <p>{{rewardDescription}}</p>
-                <h4>{{points}}</h4>
-                  <form action="/rewards/redeem/{{_id}}" method="post">
-                <button type="submit">Redeem</button>
-                </form>
+                {{#if redeemed}}
+                {{#each redeemed}}
+                <div>
+                    <h4>{{rewardName}}</h4>
+                    <p>{{rewardType}}</p>
+                    <p>{{rewardDescription}}</p>
+                </div>
+                {{/each}}
+                {{/if}}
+
             </div>
-            {{/each}}
-            {{else}}
-            <h2>No Rewards Available</h2>
-            {{/if}}
+
+
+            <hr>
+            {{#unless rewards}}
+            <div class="motek-hero">
+                <h2 class="no-rewards">You dont have any rewards</h2>
+                <h1>As a <span>Motek Hero</span></h1>
+                <p>you'll have access to these rewards</p>
+            </div>
+            {{/unless}}
+            <h1 class="no-rewards">Available rewards</h1>
+            <div class="redeem-rewards">
+                {{#if rewards}}
+                {{#each rewards}}
+                <div class="redeem-item">
+                    <h4>{{rewardName}}</h4>
+                    <p>{{rewardType}}</p>
+                    <p>{{rewardDescription}}</p>
+                    <h4>{{points}}</h4>
+                    <form action="/rewards/redeem/{{_id}} method="post">
+                        <button type="submit">Redeem</button>
+                    </form>
+                </div>
+                {{/each}}
+                {{else}}
+                <h2>No Rewards Available</h2>
+                {{/if}}
+            </div>
         </div>
     </div>
-</div>
