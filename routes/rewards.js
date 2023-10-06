@@ -5,10 +5,11 @@ const Menu = require('../models/Menu');
 const Meal = require('../models/Meal');
 const Reward = require('../models/Rewards')
 const { route } = require('./admin-user');
+const { isLoggedIn, isLoggedOut } = require('../middleware/route-guard')
 
 
 
-router.get('/content', (req, res, next) => {
+router.get('/content',isLoggedIn, (req, res, next) => {
     const isLoggedIn = req.session.user ? true : false;
     // const { fullname, username, points } = req.session.user
     console.log(req.session.user);
@@ -41,7 +42,7 @@ router.get('/content', (req, res, next) => {
 
 });
 
-router.get('/seeRewards', (req, res, next) => {
+router.get('/seeRewards',isLoggedIn, (req, res, next) => {
     const isLoggedIn = req.session.user ? true : false;
     const { username, fullname } = req.session.user
     console.log('fullName:', fullname)
@@ -52,7 +53,7 @@ router.get('/seeRewards', (req, res, next) => {
 
 // ---- Add & Remove - Meal From
 // Get 
-router.get('/addyourpoints', (req, res, next) => {
+router.get('/addyourpoints',isLoggedIn, (req, res, next) => {
     const isLoggedIn = req.session.user ? true : false;
     let { chosenMeal } = req.session
     console.log('menuType', chosenMeal);
@@ -80,7 +81,7 @@ router.get('/addyourpoints', (req, res, next) => {
     }
 })
 // Post
-router.post('/addyourpoints', (req, res, next) => {
+router.post('/addyourpoints',isLoggedIn, (req, res, next) => {
     const isLoggedIn = req.session.user ? true : false;
     req.session.chosenMeal = req.body.meal
     const chosenMeal = req.body.meal
@@ -100,7 +101,7 @@ router.post('/addyourpoints', (req, res, next) => {
         })
 })
 // Select & Add an element to cart ------------------------
-router.post('/addyourpoints/:menuType/:itemId', (req, res, next) => {
+router.post('/addyourpoints/:menuType/:itemId',isLoggedIn, (req, res, next) => {
     const isLoggedIn = req.session.user ? true : false;
     console.log('Adding Item:', req.session, req.params)
 
@@ -149,7 +150,7 @@ router.post('/addyourpoints/:menuType/:itemId', (req, res, next) => {
 });
 
 
-router.get('/myCart', (req, res, next) => {
+router.get('/myCart', isLoggedIn,(req, res, next) => {
     console.log('My cart')
     const itemId = req.session.meal._id
     console.log('ItemId', itemId)
@@ -169,7 +170,7 @@ router.get('/myCart', (req, res, next) => {
 
 })
 
-router.post('/myCart/delete/:item', async (req, res, next) => {
+router.post('/myCart/delete/:item', isLoggedIn,async (req, res, next) => {
 
     const mealId = req.session.meal._id
     console.log('Line 155 - Deleted Item:', req.params.item);
@@ -198,7 +199,7 @@ router.post('/myCart/delete/:item', async (req, res, next) => {
 
 // Filter -------------------------------------------------
 
-router.get('/addyourpoints/filter', (req, res, next) => {
+router.get('/addyourpoints/filter', isLoggedIn,(req, res, next) => {
     console.log("body 😊", req.query)
     const { categoryFilter } = req.query
     let { itemNameFilter } = req.query
@@ -259,7 +260,7 @@ router.get('/addyourpoints/filter', (req, res, next) => {
 })
 
 
-router.get('/submitpoints', (req, res, next) => {
+router.get('/submitpoints', isLoggedIn,(req, res, next) => {
     req.session.currentCalories = 0;
     req.session.currentPoints = 0;
     Meal.findById(req.session.meal._id)
@@ -273,14 +274,14 @@ router.get('/submitpoints', (req, res, next) => {
             let totalPoints = Math.ceil(totalCalories / 100);
             req.session.currentCalories = totalCalories;
             req.session.currentPoints = totalPoints;
-            res.render('rewards/submit-points', { addedItems: foundMeal.menuItems, calories: totalCalories, totalPoints, itemCount: foundMeal.menuItems.length })
+            res.render('rewards/submit-points', { addedItems: foundMeal.menuItems, calories: totalCalories, totalPoints, itemCount: foundMeal.menuItems.length, isLoggedIn:true })
 
         })
         .catch(err => console.log(err))
 
 })
 
-router.get('/confirm', (req, res, next) => {
+router.get('/confirm', isLoggedIn,(req, res, next) => {
     User.findByIdAndUpdate(req.session.user._id, { $inc: { points: req.session.currentPoints } }, { new: true })
         .then(updated => {
             console.log(updated, " <<<===== User confirmed and updated");
@@ -290,7 +291,7 @@ router.get('/confirm', (req, res, next) => {
 })
 
 
-router.post('/redeem/:rewardId', (req, res, next) => {
+router.post('/redeem/:rewardId', isLoggedIn,(req, res, next) => {
     // const {username, fullname, rewards}
     Reward.findById(req.params.rewardId)
     .then(foundReward => {
