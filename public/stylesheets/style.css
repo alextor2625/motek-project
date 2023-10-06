@@ -1161,10 +1161,53 @@ video {
   z-index: 2;
 }
 
-/* #profile-first:hover {
+.two-tabs {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-column-gap: 2rem;
+  margin-left: 21rem;
+  font-family: var(--font-slab);
+}
+
+.tab-content-text2 {
+  border: 1px solid var(--primary-yellow);
+  margin-bottom: 1rem;
+  text-align: center;
+  color: var(--blue);
+  font-family: var(--font-slab);
+  margin-bottom: 1rem;
+}
+
+.weekly-goal {
+  padding: 1rem;
+  border: none;
+  border-radius: 25px;
   background-color: var(--blue);
   color: white;
-  border-top: 1px solid var(--blue);
-  border-right: 1px solid var(--blue);
-  border-left: 1px solid var(--blue);
-} */
+  font-family: var(--font-slab);
+  margin-top: 1rem;
+}
+
+.weekly-goal:hover {
+  background-color: var(--primary-yellow);
+  cursor: pointer;
+}
+
+.generate {
+  margin-bottom: 1rem;
+  padding: 1rem;
+  border: none;
+  border-radius: 25px;
+  background-color: var(--primary-yellow);
+  color: white;
+  font-family: var(--font-slab);
+}
+
+.generate:hover {
+  background-color: var(--blue);
+  cursor: pointer;
+}
+
+.user-profile-tab {
+  margin-bottom: 4rem;
+}
