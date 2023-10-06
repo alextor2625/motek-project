@@ -1,20 +1,23 @@
-<h2>Edit Profile</h2>
+<div class="index-body">
 
-<form action="/users/profile/edit" method="post" class="form-orientation">
+    <h2>Edit Profile</h2>
 
-    <label for="firstname" class='centered-labels'>First Name: </label>
-    <input type="text" name="firstname" id="firstname" value="{{firstname}}" class="inputs-form">
+    <form action="/users/profile/edit" method="post" class="form-orientation">
 
-    <label for="lastname" class='centered-labels'>Last Name: </label>
-    <input type="text" name="lastname" id="lastname" value="{{lastname}}" class="inputs-form">
+        {{!-- <label for="firstname" class='centered-labels'>First Name: </label> --}}
+        <input type="text" name="firstname" id="firstname" class="user-inputs" value="{{firstname}}" class="inputs-form" placeholder="Firstname">
 
-    <label for="email" class='centered-labels'>Email: </label>
-    <input type="text" name="email" id="email" value="{{email}}" class="inputs-form">
+        {{!-- <label for="lastname" class='centered-labels'>Last Name: </label> --}}
+        <input type="text" name="lastname" id="lastname" value="{{lastname}}" class="user-inputs" placeholder="Lastname">
 
-    <button type="submit" class="save-changes btn-forms">Save Changes</button>
-    <a href=" /users/profile" class="btn-cancel btn-forms">Cancel</a>
+        {{!-- <label for="email" class='centered-labels'>Email: </label> --}}
+        <input type="text" name="email" id="email"  value="{{email}}" class="user-inputs" placeholder="Email">
 
-    {{#if errorMessage}}
-    <p>{{errorMessage}}</p>
-    {{/if}}
-</form>
+        <button type="submit" class="btn-forms">Save Changes</button>
+        <a href=" /users/profile" class="btn-forms">Cancel</a>
+
+        {{#if errorMessage}}
+        <p>{{errorMessage}}</p>
+        {{/if}}
+    </form>
+</div>
