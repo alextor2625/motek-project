@@ -3,15 +3,24 @@ var router = express.Router();
 const User = require('../models/User');
 const Menu = require('../models/Menu');
 const Meal = require('../models/Meal');
+const Reward = require('../models/Rewards')
 const { route } = require('./admin-user');
 
 
 
 router.get('/content', (req, res, next) => {
     const isLoggedIn = req.session.user ? true : false;
-    const { username } = req.session.user
+    const { fullname, username, points } = req.session.user
+    Reward.find()
+    .then(rewards =>{
+        console.log(rewards, "<<<===== All Rewards");
+        let firstname = fullname.split(' ')[0]
+        
+        res.render('rewards/rewards.hbs', { isLoggedIn: true, username, firstname ,fullname, points, rewards });
+    })
 
-    res.render('rewards/rewards.hbs', { isLoggedIn: true, username });
+
+
 });
 
 router.get('/seeRewards', (req, res, next) => {
@@ -19,7 +28,7 @@ router.get('/seeRewards', (req, res, next) => {
     const { username, fullname } = req.session.user
     console.log('fullName:', fullname)
     console.log('Username:', username)
-    res.render('rewards/see-rewards.hbs', { isLoggedIn: true, username, fullname })
+    res.render('rewards/see-rewards.hbs', { isLoggedIn: true, username, fullname,  })
 })
 
 
@@ -143,37 +152,6 @@ router.get('/myCart', (req, res, next) => {
 
 })
 
-// router.post('/myCart/delete/:item', (req, res, next) => {
-//     const itemId = req.session.meal._id
-//     console.log('Deleted Item:', itemId);
-
-//     Meal.findById(itemId)
-//         .populate('menuItems')
-//         .then(addedItems => {
-//             if (addedItems && addedItems.menuItems.length > 0) {
-//                 console.log('Deleted Item - Line 129:', itemId)
-//                 return Meal.findByIdAndDelete(itemId)
-//                     .then((deletedItem) => {
-//                         console.log('deleted item line 132:', deletedItem)
-//                         res.redirect('/rewards/myCart')
-//                     })
-//                     .catch((err) => {
-//                         console.log('Not Found:', err)
-//                     })
-//             } else {
-
-//                 Meal.find()
-//                     .then(mealCart => {
-//                         console.log('Deleted Item:', mealCart)
-//                         res.redirect('/rewards/addyourpoints');
-//                     })
-//             }
-//         })
-//         .catch((err) => {
-//             console.log('Error:', err);
-//             // next(err);
-//         });
-// })
 router.post('/myCart/delete/:item', async (req, res, next) => {
 
     const mealId = req.session.meal._id
@@ -265,14 +243,39 @@ router.get('/addyourpoints/filter', (req, res, next) => {
 
 
 router.get('/submitpoints', (req,res,next) =>{
+    req.session.currentCalories = 0;
+    req.session.currentPoints = 0;
     Meal.findById(req.session.meal._id)
     .populate('menuItems')
     .then(foundMeal => {
         console.log("SUBMIT POINTS ====>", foundMeal.menuItems);
-        res.render('rewards/submit-points', {addedItems: foundMeal.menuItems, itemCount: foundMeal.menuItems.length})
+        let totalCalories = 0;
+        foundMeal.menuItems.forEach((menuItem => {
+            totalCalories+=menuItem.calories
+        }))
+        let totalPoints = Math.ceil(totalCalories/100);
+        req.session.currentCalories = totalCalories;
+        req.session.currentPoints = totalPoints;
+        res.render('rewards/submit-points', {addedItems: foundMeal.menuItems, calories: totalCalories,totalPoints ,itemCount: foundMeal.menuItems.length})
         
     })
     .catch(err => console.log(err))
 
 })
+
+router.get('/confirm', (req,res,next) => {
+    User.findByIdAndUpdate(req.session.user._id, {$inc: { points: req.session.currentPoints }}, {new: true})
+    .then(updated => {
+        console.log(updated," <<<===== User confirmed and updated");
+        req.session.user = updated;
+        res.redirect('/rewards/content')
+    })
+})
+
+
+router.post('/redeem/:rewardId', (req,res,next) =>{
+    // const {username, fullname, rewards}
+    
+})
+
 module.exports = router;

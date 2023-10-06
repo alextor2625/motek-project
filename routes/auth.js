@@ -111,11 +111,13 @@ router.post('/login', isLoggedOut, (req, res, next) => {
 })
 
 router.get('/logout', isLoggedIn, (req, res, next) => {
-    console.log(req.session.meal._id)
-    Meal.findByIdAndDelete(req.session.meal._id)
-        .then(deletedMeal => {
-            console.log("Meal Deleted ====>", deletedMeal, "Success!!")
-        })
+    console.log('meal' in req.session)
+    if('meal' in req.session){
+        Meal.findByIdAndDelete(req.session.meal._id)
+            .then(deletedMeal => {
+                console.log("Meal Deleted ====>", deletedMeal, "Success!!")
+            })  
+    }
     req.session.destroy(err => {
         if (err) next(err)
         res.redirect('/')
