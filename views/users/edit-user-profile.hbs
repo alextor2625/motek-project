@@ -1,6 +1,6 @@
 <div class="index-body">
 
-    <h2>Edit Profile</h2>
+    <h2 class="form-title">Edit Profile</h2>
 
     <form action="/users/profile/edit" method="post" class="form-orientation">
 
@@ -14,7 +14,7 @@
         <input type="text" name="email" id="email"  value="{{email}}" class="user-inputs" placeholder="Email">
 
         <button type="submit" class="btn-forms">Save Changes</button>
-        <a href=" /users/profile" class="btn-forms">Cancel</a>
+        <button href=" /users/profile" class="btn-forms">Cancel</a>
 
         {{#if errorMessage}}
         <p>{{errorMessage}}</p>
