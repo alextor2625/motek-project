@@ -11,8 +11,10 @@ router.get('/profile', isLoggedIn, (req, res, next) => {
   console.log("Is Admin?", admin);
   if(admin){
     res.redirect('/admin/user')
+  }else{
+
+    res.render('users/user-profile', { fullname, username, email, isLoggedIn: true })
   }
-  res.render('users/user-profile', { fullname, username, email, isLoggedIn: true })
 });
 
 router.get('/profile/edit', isLoggedIn, (req, res, next) => {
