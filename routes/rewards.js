@@ -52,7 +52,6 @@ router.get('/addyourpoints', (req, res, next) => {
                             res.render('rewards/add-points.hbs', { isLoggedIn: true, showForm: false, addedItems: true, picked, chosenMeal })
                         }
                     })
-
             })
             .catch((err) => {
                 console.error('Error retrieving menu items:', err);
