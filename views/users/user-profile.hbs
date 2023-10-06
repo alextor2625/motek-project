@@ -1,13 +1,52 @@
-<h2 class="profile-name">{{username}}'s Profile</h2>
+<div class="back-color-blue">.</div>
+<div class="index-body">
+    <nav class="rewards-nav-container">
+        <div class="profile-firstname">
+            <div class="profile-tab">
+                <div class="heart-icon-container">
+                    <div class="heart-icon"></div>
+                    <a href="#firstname" id="profile-first">{{firstname}}</a>
+                </div>
 
-<div>
-    <p> Name: {{fullname}}</p>
-    <p> Email: {{email}}</p>
+                <a href="#overview">Overview</a>
+                <a href="#overview">Rewards</a>
+                <a href="#overview">Goals & Preferences</a>
+                <a href="#overview">Settings</a>
 
-    <form action="/users/profile/edit" method="get">
+            </div>
+            <h1 class="rewards-username" id="firstname">Welcome <br> <span>{{fullname}}</span></h1>
+        </div>
+    </nav>
+    <div class="user-profile-tab">
+        <div class="two-tabs">
+            <div class="tab-content-text2">
+                <h1>Motek Points</h1>
+                <h2>0</h2>
+                <p>Points Earned</p>
+                <h1>1,000</h1>
+                <p>points away from become ea motek warrio</p>
+            </div>
 
-        <label for="edit-profile"></label>
-        <button name="edit-profile" id="edit-profile">Edit Profile</button>
+            <div class="tab-content-text2">
+                <h1>Achievments / Status</h1>
+                <h2>Hero</h2>
+                <p>0 Points Earned</p>
+            </div>
+        </div>
 
-    </form>
+        <div class="two-tabs">
+            <div class="tab-content-text2">
+                <h1>Weekly Meal Plan</h1>
+                <p>Get an AI-generated meal plan that fits according to <br>your preferences and goals.
+                </p>
+                <button class="generate">Generate</button>
+            </div>
+
+            <div class="tab-content-text2">
+                <h1>Weekly Goal</h1>
+                <h2>Hero</h2>
+                <button class="weekly-goal">Set Goal</button>
+            </div>
+        </div>
+    </div>
 </div>
