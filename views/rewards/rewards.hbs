@@ -48,32 +48,99 @@
 
             </div>
 
-
-            <hr>
-            {{#unless rewards}}
-            <div class="motek-hero">
-                <h2 class="no-rewards">You dont have any rewards</h2>
-                <h1>As a <span>Motek Hero</span></h1>
-                <p>you'll have access to these rewards</p>
-            </div>
-            {{/unless}}
-            <h1 class="no-rewards">Available rewards</h1>
-            <div class="redeem-rewards">
-                {{#if rewards}}
-                {{#each rewards}}
-                <div class="redeem-item">
-                    <h4>{{rewardName}}</h4>
-                    <p>{{rewardType}}</p>
-                    <p>{{rewardDescription}}</p>
-                    <h4>{{points}}</h4>
-                    <form action="/rewards/redeem/{{_id}}" method="post">
-                        <button type="submit">Redeem</button>
-                    </form>
-                </div>
-                {{/each}}
-                {{else}}
-                <h2>No Rewards Available</h2>
-                {{/if}}
-            </div>
         </div>
+        {{#unless rewards}}
+        <div class="motek-hero">
+            <h2 class="no-rewards">You dont have any rewards</h2>
+            <h1>As a <span>Motek Hero</span></h1>
+            <p>you'll have access to these rewards</p>
+        </div>
+        {{/unless}}
+        <div class="redeem-rewards">
+            {{#if rewards}}
+            {{#each rewards}}
+            <div class="redeem-item">
+                <h4>{{rewardName}}</h4>
+                <p>{{rewardType}}</p>
+                <p>{{rewardDescription}}</p>
+                <h4>{{points}}</h4>
+                <form action="/rewards/redeem/{{_id}}" method="post">
+                    <button type="submit">Redeem</button>
+                </form>
+            </div>
+            {{/each}}
+            {{else}}
+            <h1 class="points-one-hidden">.</h1>
+            <h1 class="points-one">200 - 300 Points</h1>
+            <h1 class="points-one-hidden">.</h1>
+            
+            <div class="weat-image-container">
+                <div class="weat-image"></div>
+                <h1 class="reward-content">Whole weat wrap</h1>
+                <p class="reward-content2">200 Points</p>
+            </div>
+            
+            <div class="hummus-image-container">
+                <div class="hummus-image"></div>
+                <h1 class="reward-content">Hummus Tejina</h1>
+                <p class="reward-content2">250 Points</p>
+            </div>
+            
+            <div class="green-image-container">
+                <div class="green-image"></div>
+                <h1 class="reward-content">Large Green Hot Peppers</h1>
+                <p class="reward-content2">300 Points</p>
+            </div>
+            
+            
+            <h1 class="points-one-hidden">.</h1>
+            <h1 class="points-one">300 - 600 Points</h1>
+            <h1 class="points-one-hidden">.</h1>
+            
+            <div class="hisbicus-image-container">
+                <div class="hisbicus-image"></div>
+                <h1 class="reward-content">Hisbicus Iced Tea</h1>
+                <p class="reward-content2">300 Points</p>
+            </div>
+            
+            <div class="rimonana-image-container">
+                <div class="rimonana-image"></div>
+                <h1 class="reward-content">Rimonana</h1>
+                <p class="reward-content2">300 Points</p>
+            </div>
+            
+            <div class="tote-image-container">
+                <div class="tote-image"></div>
+                <h1 class="reward-content">Motek Tote</h1>
+                <p class="reward-content2">545 Points</p>
+            </div>
+            
+            <h1 class="points-one-hidden">.</h1>
+            <h1 class="points-one">600 - 1000 Points</h1>
+            <h1 class="points-one-hidden">.</h1>
+            
+            <div class="falafel-image-container">
+                <div class="falafel-image"></div>
+                <h1 class="reward-content">Falafel Sandwich</h1>
+                <p class="reward-content2">730 Points</p>
+            </div>
+            
+            <div class="berry-image-container">
+                <div class="berry-image"></div>
+                <h1 class="reward-content">Berry Basil</h1>
+                <p class="reward-content2">640 Points</p>
+            </div>
+            
+            <div class="yummy-image-container">
+                <div class="yummy-image"></div>
+                <h1 class="reward-content">Priority Testing</h1>
+                <p class="reward-content2">950 Points</p>
+            </div>
+            
+            
+            
+            <div></div>
+            {{/if}}
+        </div>
+
     </div>

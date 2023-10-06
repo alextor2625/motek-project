@@ -66,6 +66,7 @@ nav {
 .form-orientation {
   display: flex;
   flex-direction: column;
+  margin-bottom: 2rem;
   /* justify-content: center; */
 }
 
@@ -192,9 +193,13 @@ span {
   margin-left: 1rem;
 }
 
+.items {
+  display: flex;
+  flex-direction: column;
+}
 .item-btns {
-  margin-bottom: 1rem;
-  text-align: center;
+  margin: 0 auto;
+    margin-top: 2rem;
 }
 
 .item-btns>a {
@@ -1010,7 +1015,7 @@ video {
   width: 100%;
   background-color: #304A97;
   position: absolute;
-  top: 10%;
+  top: 12%;
   z-index: 1;
 }
 
@@ -1145,20 +1150,13 @@ video {
 }
 
 #firstname {
-  color: white;
-  z-index: 2;
+  color: grey;
 }
 
 #profile-first {
   background-color: var(--primary-yellow-light);
   text-decoration: none;
   color: var(--blue);
-}
-
-
-#firstname:hover {
-  color: white;
-  z-index: 2;
 }
 
 .two-tabs {
@@ -1210,4 +1208,176 @@ video {
 
 .user-profile-tab {
   margin-bottom: 4rem;
+}
+.points-one {
+  color: var(--blue);
+  font-family: var(--font-slab);
+  text-align: center;
+}
+
+.points-one-hidden {
+  color: white;
+}
+
+.reward-content {
+  font-family: var(--font-slab);
+  color: var(--primary-yellow);
+  white-space: nowrap;
+  font-size: 0.8rem;
+  text-align: center;
+}
+
+.reward-content2 {
+  color: var(--dark-grey);
+  white-space: nowrap;
+  font-size: 0.8rem;
+  text-align: center;
+}
+
+.weat-image {
+  background-image: url('/images/whole.jpeg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 194%;
+  height: 65px;
+  width: 65px;
+  margin: 0 auto;
+  padding-top: 1rem;
+}
+
+.weat-image-container {
+  border: 1px solid grey;
+  border-radius: 25px;
+}
+
+.hummus-image {
+  background-image: url('/images/hummus.jpeg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 194%;
+  height: 65px;
+  width: 65px;
+  margin: 0 auto;
+  padding-top: 1rem;
+}
+
+.hummus-image-container {
+  border: 1px solid grey;
+  border-radius: 25px;
+}
+
+.green-image {
+  background-image: url('/images/green.jpeg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 194%;
+  height: 65px;
+  width: 65px;
+  margin: 0 auto;
+  padding-top: 1rem;
+}
+
+.green-image-container {
+  border: 1px solid grey;
+  border-radius: 25px;
+}
+
+.hisbicus-image {
+  background-image: url('/images/hibiscus.jpeg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 194%;
+  height: 65px;
+  width: 65px;
+  margin: 0 auto;
+  padding-top: 1rem;
+}
+
+.hisbicus-image-container {
+  border: 1px solid grey;
+  border-radius: 25px;
+}
+
+.rimonana-image {
+  background-image: url('/images/rimonana.jpeg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 194%;
+  height: 65px;
+  width: 65px;
+  margin: 0 auto;
+  padding-top: 1rem;
+}
+
+.rimonana-image-container {
+  border: 1px solid grey;
+  border-radius: 25px;
+}
+
+.tote-image {
+  background-image: url('/images/tote.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100%;
+  height: 65px;
+  width: 65px;
+  margin: 0 auto;
+  padding-top: 1rem;
+}
+
+.tote-image-container {
+  border: 1px solid grey;
+  border-radius: 25px;
+}
+
+.falafel-image {
+  background-image: url('/images/falafel.jpeg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 194%;
+  height: 65px;
+  width: 65px;
+  margin: 0 auto;
+  padding-top: 1rem;
+}
+
+.falafel-image-container {
+  border: 1px solid grey;
+  border-radius: 25px;
+}
+
+.berry-image {
+  background-image: url('/images/berry.jpeg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 194%;
+  height: 65px;
+  width: 65px;
+  margin: 0 auto;
+  padding-top: 1rem;
+}
+
+.berry-image-container {
+  border: 1px solid grey;
+  border-radius: 25px;
+}
+
+.yummy-image {
+  background-image: url('/images/yummy.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100%;
+  height: 65px;
+  width: 65px;
+  margin: 0 auto;
+  padding-top: 1rem;
+}
+
+.yummy-image-container {
+  border: 1px solid grey;
+  border-radius: 25px;
+}
+
+.add-item-rewards2 {
+  padding: 1rem 2rem;
 }
