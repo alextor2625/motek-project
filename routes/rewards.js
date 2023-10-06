@@ -11,13 +11,29 @@ const { route } = require('./admin-user');
 router.get('/content', (req, res, next) => {
     const isLoggedIn = req.session.user ? true : false;
     const { fullname, username, points } = req.session.user
-    Reward.find()
-    .then(rewards =>{
-        console.log(rewards, "<<<===== All Rewards");
-        let firstname = fullname.split(' ')[0]
-        
-        res.render('rewards/rewards.hbs', { isLoggedIn: true, username, firstname ,fullname, points, rewards });
-    })
+    if('redeems' in req.session.user){
+        User.findById(req.session.user._id)
+        .populate('redeems')
+        .then(user =>{
+            req.session.redeemed = user.redeems
+            Reward.find()
+            .then(rewards => {
+                    let {redeemed} = req.session
+                    console.log(req.session.redeems,"<<<<<===== MY REDEEMS");
+                    // console.log(rewards, "<<<===== All Rewards");
+                    let firstname = fullname.split(' ')[0]
+                    res.render('rewards/rewards.hbs', { isLoggedIn: true, username, firstname, fullname, points, rewards, redeemed });
+                })
+        })
+    } else{ 
+        Reward.find()
+            .then(rewards => {
+                console.log(rewards, "<<<===== All Rewards");
+                let firstname = fullname.split(' ')[0]
+    
+                res.render('rewards/rewards.hbs', { isLoggedIn: true, username, firstname, fullname, points, rewards });
+            })
+    }
 
 
 
@@ -28,7 +44,7 @@ router.get('/seeRewards', (req, res, next) => {
     const { username, fullname } = req.session.user
     console.log('fullName:', fullname)
     console.log('Username:', username)
-    res.render('rewards/see-rewards.hbs', { isLoggedIn: true, username, fullname,  })
+    res.render('rewards/see-rewards.hbs', { isLoggedIn: true, username, fullname, })
 })
 
 
@@ -188,15 +204,15 @@ router.get('/addyourpoints/filter', (req, res, next) => {
 
     if (itemNameFilter.length < 1 && categoryFilter === "All Categories") {
         Menu.find({ menuType: req.query.chosenMeal })
-        .then(picked => {
-            picked = picked.map((item) => {
-                return { ...item._doc, chosen: req.query.chosenMeal }
+            .then(picked => {
+                picked = picked.map((item) => {
+                    return { ...item._doc, chosen: req.query.chosenMeal }
+                })
+                console.log("FILTER =====>", { picked });
+                selected = "All Categories"
+                res.render('rewards/add-points', { picked, itemNameFilter, selected: { selected: categoryFilter, chosenMeal: req.query.chosenMeal }, isLoggedIn: true })
             })
-            console.log("FILTER =====>", { picked });
-            selected = "All Categories"
-            res.render('rewards/add-points', { picked, itemNameFilter,selected :{selected: categoryFilter, chosenMeal: req.query.chosenMeal }, isLoggedIn: true })
-        })
-        .catch(err => console.log(err))
+            .catch(err => console.log(err))
         return
     }
     if (itemNameFilter.length < 1 && categoryFilter !== "All Categories") {
@@ -241,40 +257,90 @@ router.get('/addyourpoints/filter', (req, res, next) => {
 })
 
 
-router.get('/submitpoints', (req,res,next) =>{
+router.get('/submitpoints', (req, res, next) => {
     req.session.currentCalories = 0;
     req.session.currentPoints = 0;
     Meal.findById(req.session.meal._id)
-    .populate('menuItems')
-    .then(foundMeal => {
-        console.log("SUBMIT POINTS ====>", foundMeal.menuItems);
-        let totalCalories = 0;
-        foundMeal.menuItems.forEach((menuItem => {
-            totalCalories+=menuItem.calories
-        }))
-        let totalPoints = Math.ceil(totalCalories/100);
-        req.session.currentCalories = totalCalories;
-        req.session.currentPoints = totalPoints;
-        res.render('rewards/submit-points', {addedItems: foundMeal.menuItems, calories: totalCalories,totalPoints ,itemCount: foundMeal.menuItems.length})
-        
-    })
-    .catch(err => console.log(err))
+        .populate('menuItems')
+        .then(foundMeal => {
+            console.log("SUBMIT POINTS ====>", foundMeal.menuItems);
+            let totalCalories = 0;
+            foundMeal.menuItems.forEach((menuItem => {
+                totalCalories += menuItem.calories
+            }))
+            let totalPoints = Math.ceil(totalCalories / 100);
+            req.session.currentCalories = totalCalories;
+            req.session.currentPoints = totalPoints;
+            res.render('rewards/submit-points', { addedItems: foundMeal.menuItems, calories: totalCalories, totalPoints, itemCount: foundMeal.menuItems.length })
+
+        })
+        .catch(err => console.log(err))
 
 })
 
-router.get('/confirm', (req,res,next) => {
-    User.findByIdAndUpdate(req.session.user._id, {$inc: { points: req.session.currentPoints }}, {new: true})
-    .then(updated => {
-        console.log(updated," <<<===== User confirmed and updated");
-        req.session.user = updated;
-        res.redirect('/rewards/content')
-    })
+router.get('/confirm', (req, res, next) => {
+    User.findByIdAndUpdate(req.session.user._id, { $inc: { points: req.session.currentPoints } }, { new: true })
+        .then(updated => {
+            console.log(updated, " <<<===== User confirmed and updated");
+            req.session.user = updated;
+            res.redirect('/rewards/content')
+        })
 })
 
 
-router.post('/redeem/:rewardId', (req,res,next) =>{
+router.post('/redeem/:rewardId', (req, res, next) => {
     // const {username, fullname, rewards}
-    
+
+    if ('redeems' in req.session.user) {
+        User.findByIdAndUpdate(req.session.user._id,
+            { $push: { redeems: req.params.rewardId } },
+            { new: true })
+            .then(updatedUser => {
+                console.log(updatedUser, "<<<<==== User Has added redeemed a reward");
+                req.session.user = updatedUser;
+                res.redirect('/rewards/content');
+            })
+    } else{
+        User.findByIdAndUpdate(req.session.user._id,
+            { redeems: req.params.rewardId },
+            { new: true })
+            .then(updatedUser => {
+                console.log(updatedUser, "<<<<==== User Has added redeemed a reward");
+                req.session.user = updatedUser;
+                res.redirect('/rewards/content');
+            })
+    }
+
+
+    // if ('redeem' in req.session) {
+    //     User.findByIdAndUpdate(
+    //         req.session.user._id,
+    //         { $push: { redeems: req.params.rewardId } },
+    //         { new: true }
+    //     )
+    //         .then(updatedUser => {
+    //             console.log("New item ===>", updatedUser);
+    //             req.session.user = updatedUser;
+    //             return updatedUser;
+    //         })
+    //         .populate('redeems')
+    //         .then()
+    //         .catch(err => {
+    //             console.error('Error updating meal:', err);
+    //             next(err);
+    //         });
+    // } else {
+    //     Meal.create({ menuItems: req.params.itemId })
+    //         .then(newMeal => {
+    //             console.log("New meal ===>", newMeal);
+    //             req.session.meal = newMeal;
+    //             fetchAndRenderMenu(req.params.menuType, newMeal);
+    //         })
+    //         .catch(err => {
+    //             console.error('Error creating meal:', err);
+    //             next(err);
+    //         });
+// }
 })
 
 module.exports = router;
