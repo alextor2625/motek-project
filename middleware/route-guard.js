@@ -6,7 +6,7 @@ const isLoggedIn = (req, res, next) => {
     return res.redirect('/auth/login');
   }
   res.locals.user = req.session.user;
-  console.log("Is logged out:", true);
+  console.log("Is logged in:", true);
   res.locals.isLoggedIn = true
   next();
 };
@@ -20,7 +20,7 @@ const isLoggedOut = (req, res, next) => {
     return res.redirect('/');
   }
   res.locals.user = null;
-  console.log("Is logged in:", isLoggedOut);
+  console.log("Is logged out:", isLoggedOut);
   res.locals.isLoggedIn = false
 
   next();

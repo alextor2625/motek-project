@@ -13,8 +13,8 @@ router.get('/user', isLoggedIn, function (req, res, next) {
     if (req.session.user.admin) {
         console.log("Admin User recognised");
 
-        const isLoggedIn = req.session.user ? true : false;
-        return res.render('users/admin-profile', { isLoggedIn, admin: true });
+        // const isLoggedIn = req.session.user ? true : false;
+        return res.render('users/admin-profile.hbs');
     }
     else {
         return res.redirect('/')
